@@ -5,7 +5,7 @@
 package com.MedicineIS.view;
 
 import com.MedicineIS.model.MedicineInfo;
-import com.MedicineIS.util.Validation;
+import com.medicineis.util.Validation;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -125,8 +125,9 @@ public class MedicineIS extends javax.swing.JFrame {
         lblBodyHeading = new javax.swing.JLabel();
         lblWebDesc = new javax.swing.JLabel();
         lblAdminDesc = new javax.swing.JLabel();
-        lblAdminLink = new javax.swing.JLabel();
+        lblLinkHelper = new javax.swing.JLabel();
         lblHomePagePhoto = new javax.swing.JLabel();
+        lblAdminLink = new javax.swing.JLabel();
         pnlMain = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
@@ -220,17 +221,27 @@ public class MedicineIS extends javax.swing.JFrame {
         lblAdminDesc.setForeground(new java.awt.Color(100, 255, 200));
         lblAdminDesc.setText("<html>You can add new medicine information, delete records, & update existing entries to keep the database accurate.</html>");
 
+        lblLinkHelper.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblLinkHelper.setForeground(new java.awt.Color(100, 255, 200));
+        lblLinkHelper.setText("ACCESS ");
+
+        lblHomePagePhoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHomePagePhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/Homepagephoto.png"))); // NOI18N
+
         lblAdminLink.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblAdminLink.setForeground(new java.awt.Color(100, 255, 200));
-        lblAdminLink.setText("<html>ACCESS <span style=\"color:rgb(255,240,0);\">ADMIN CONTROL</span></html>");
+        lblAdminLink.setForeground(new java.awt.Color(255, 240, 0));
+        lblAdminLink.setText("ADMIN CONTROL");
         lblAdminLink.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAdminLinkMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAdminLinkMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAdminLinkMouseExited(evt);
+            }
         });
-
-        lblHomePagePhoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHomePagePhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/MedicineIS/resources/Homepagephoto.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
         pnlHome.setLayout(pnlHomeLayout);
@@ -246,7 +257,10 @@ public class MedicineIS extends javax.swing.JFrame {
                         .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblWebDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAdminDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAdminLink, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlHomeLayout.createSequentialGroup()
+                                .addComponent(lblLinkHelper)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblAdminLink)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(100, 100, 100))
         );
@@ -265,7 +279,9 @@ public class MedicineIS extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblAdminDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAdminLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblAdminLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblLinkHelper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(134, Short.MAX_VALUE))
         );
 
@@ -276,7 +292,7 @@ public class MedicineIS extends javax.swing.JFrame {
         pnlHeader.setPreferredSize(new java.awt.Dimension(1300, 120));
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/MedicineIS/resources/logo.png"))); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/logo.png"))); // NOI18N
         lblLogo.setMinimumSize(new java.awt.Dimension(50, 70));
         lblLogo.setPreferredSize(new java.awt.Dimension(70, 70));
 
@@ -506,7 +522,7 @@ public class MedicineIS extends javax.swing.JFrame {
 
         lblDatabasePageLogo.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 20)); // NOI18N
         lblDatabasePageLogo.setForeground(new java.awt.Color(100, 255, 200));
-        lblDatabasePageLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/MedicineIS/resources/medicine records.png"))); // NOI18N
+        lblDatabasePageLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/medicine records.png"))); // NOI18N
 
         lblAdminError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         lblAdminError.setForeground(new java.awt.Color(255, 80, 0));
@@ -520,7 +536,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblSearchIcon.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblSearchIcon.setForeground(new java.awt.Color(100, 255, 200));
         lblSearchIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSearchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/MedicineIS/resources/search.png"))); // NOI18N
+        lblSearchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/search.png"))); // NOI18N
         lblSearchIcon.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(60, 60, 60)), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(100, 255, 200))); // NOI18N
         lblSearchIcon.setFocusable(false);
         lblSearchIcon.setRequestFocusEnabled(false);
@@ -539,7 +555,7 @@ public class MedicineIS extends javax.swing.JFrame {
         ComboxSorting.setLightWeightPopupEnabled(false);
         ComboxSorting.setRequestFocusEnabled(false);
 
-        lblSortIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/MedicineIS/resources/sort.png"))); // NOI18N
+        lblSortIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/sort.png"))); // NOI18N
         lblSortIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblSortIconMouseEntered(evt);
@@ -579,11 +595,11 @@ public class MedicineIS extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(lblAddInfoVerification, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                                 .addComponent(lblAddInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
-                            .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(scrPaneTable, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(scrPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
                                     .addComponent(lblDatabasePageLogo)
-                                    .addGap(496, 496, 496)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
                                             .addGap(6, 6, 6)
@@ -605,21 +621,24 @@ public class MedicineIS extends javax.swing.JFrame {
             .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
                 .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                        .addComponent(lblSortBy)
-                        .addGap(5, 5, 5)
-                        .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblSortIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                            .addComponent(ComboxSorting, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
-                    .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDatabasePageLogo)
-                            .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblSearchIcon)
-                                .addComponent(txtSearchBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, 0)
-                .addComponent(lblAdminSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                            .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
+                                .addComponent(lblSortBy)
+                                .addGap(5, 5, 5)
+                                .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblSortIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                                    .addComponent(ComboxSorting, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
+                            .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblSearchIcon)
+                                    .addComponent(txtSearchBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(4, 4, 4)
+                        .addComponent(lblAdminSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminDashboardLayout.createSequentialGroup()
+                        .addComponent(lblDatabasePageLogo)
+                        .addGap(18, 18, 18)))
                 .addComponent(scrPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1187,7 +1206,7 @@ public class MedicineIS extends javax.swing.JFrame {
                     .addComponent(lblSubHeading1Login)
                     .addComponent(lblSubHeading2Login)
                     .addComponent(lblHomePhoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlLoginLayout.createSequentialGroup()
                         .addComponent(lblHeadingLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1482,7 +1501,7 @@ public class MedicineIS extends javax.swing.JFrame {
             int arrayListIndex = tblMedicineDatabase.convertRowIndexToModel(tableIndex);
         
             MedicineInfo medicine = medicineList.get(arrayListIndex);
-            medicineList.remove(arrayListIndex);
+            
             
             String medId = medicine.getMedID();
             String medName = medicine.getMedName();
@@ -1633,7 +1652,7 @@ public class MedicineIS extends javax.swing.JFrame {
     String medExpDate = txtUpdateMedReleaseDate.getText();
     String medUsuage = txtUpdateMedUsuage.getText();
 
-    // Retrieve the MedicineInfo object from the ArrayList using the model index
+    // Retrieve the MedicineInfo object from the ArrayList using the table index
     MedicineInfo medicine = medicineList.get(listIndex);
 
     // Update the MedicineInfo object with the new values from the text fields
@@ -1646,14 +1665,13 @@ public class MedicineIS extends javax.swing.JFrame {
     medicine.setMedUsuage(medUsuage);
 
     // Update the corresponding table row with the new values
-    DefaultTableModel table = (DefaultTableModel) tblMedicineDatabase.getModel();
-    table.setValueAt(medId, tableIndex, 0);
-    table.setValueAt(medName, tableIndex, 1);
-    table.setValueAt(medStrength, tableIndex, 2);
-    table.setValueAt(medForm, tableIndex, 3);
-    table.setValueAt(medManufacturer, tableIndex, 4);
-    table.setValueAt(medExpDate, tableIndex, 5);
-    table.setValueAt(medUsuage, tableIndex, 6);
+    tblMedicineDatabase.setValueAt(medId, tableIndex, 0);
+    tblMedicineDatabase.setValueAt(medName, tableIndex, 1);
+    tblMedicineDatabase.setValueAt(medStrength, tableIndex, 2);
+    tblMedicineDatabase.setValueAt(medForm, tableIndex, 3);
+    tblMedicineDatabase.setValueAt(medManufacturer, tableIndex, 4);
+    tblMedicineDatabase.setValueAt(medExpDate, tableIndex, 5);
+    tblMedicineDatabase.setValueAt(medUsuage, tableIndex, 6);
 
     // Refresh the table to ensure it displays the updated content
     tblMedicineDatabase.revalidate();
@@ -1665,7 +1683,7 @@ public class MedicineIS extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblUpdateMedBtnMouseClicked
 
-    private void clearAddTxtErrors(){
+    private void clearAddTxt(){
         txtAddMedId.setText("");
         txtAddMedName.setText("");
         txtAddMedStrength.setText("");
@@ -1798,7 +1816,7 @@ public class MedicineIS extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUpdateMedUsuageActionPerformed
 
     private void lblAddMedClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMedClearMouseClicked
-        clearAddTxtErrors();
+        clearAddTxt();
     }//GEN-LAST:event_lblAddMedClearMouseClicked
 
     private void lblAddMedClearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMedClearMouseEntered
@@ -1810,8 +1828,22 @@ public class MedicineIS extends javax.swing.JFrame {
         removeRedBgColor(lblAddMedClear);
     }//GEN-LAST:event_lblAddMedClearMouseExited
 
+    private void lblAdminLinkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminLinkMouseEntered
+        lblAdminLink.repaint();
+        lblAdminLink.setForeground(new Color(230,230,230));
+        lblAdminLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_lblAdminLinkMouseEntered
+
+    private void lblAdminLinkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminLinkMouseExited
+        lblAdminLink.setForeground(new Color(255,240,0));
+        lblAdminLink.repaint();
+    }//GEN-LAST:event_lblAdminLinkMouseExited
+
     private void lblAdminLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminLinkMouseClicked
-        loadAdminPage();
+        changeBodyPanels("AdminPage");
+        addBottomColor(lblAdminControl);
+        removeBottomColor(lblHome);
+        changeAdminPanels("AdminDashboard");
     }//GEN-LAST:event_lblAdminLinkMouseClicked
 
     
@@ -1880,6 +1912,7 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblHomePagePhoto;
     private javax.swing.JLabel lblHomePhoto;
+    private javax.swing.JLabel lblLinkHelper;
     private javax.swing.JLabel lblLoginButton;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogoutbtn;
