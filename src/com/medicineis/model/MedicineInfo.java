@@ -11,19 +11,19 @@ package com.MedicineIS.model;
 public class MedicineInfo {
     private String medID;
     private String medName;
-    private String medStrength;
+    private int medStrength;
     private String medDosageForm;
     private String medManufacturer;
-    private String medReleaseDate;
+    private int medPrice;
     private String medUsuage;
 
-    public MedicineInfo(String medID, String medName, String medStrength, String medDosageForm, String medManufacturer, String medReleaseDate, String medUsuage) {
+    public MedicineInfo(String medID, String medName, int medStrength, String medDosageForm, String medManufacturer, int medPrice, String medUsuage) {
         this.medID = medID;
         this.medName = medName;
         this.medStrength = medStrength;
         this.medDosageForm = medDosageForm;
         this.medManufacturer = medManufacturer;
-        this.medReleaseDate = medReleaseDate;
+        this.medPrice = medPrice;
         this.medUsuage = medUsuage;
     }
 
@@ -43,11 +43,11 @@ public class MedicineInfo {
         this.medName = medName;
     }
 
-    public String getMedStrength() {
+    public int getMedStrength() {
         return medStrength;
     }
 
-    public void setMedStrength(String medStrength) {
+    public void setMedStrength(int medStrength) {
         this.medStrength = medStrength;
     }
 
@@ -67,12 +67,12 @@ public class MedicineInfo {
         this.medManufacturer = medManufacturer;
     }
 
-    public String getMedExpiryDate() {
-        return medReleaseDate;
+    public int getMedPrice() {
+        return medPrice;
     }
 
-    public void setMedExpiryDate(String medExpiryDate) {
-        this.medReleaseDate = medExpiryDate;
+    public void setMedPrice(int medPrice) {
+        this.medPrice = medPrice;
     }
 
     public String getMedUsuage() {

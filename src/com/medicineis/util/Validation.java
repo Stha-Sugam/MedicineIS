@@ -11,10 +11,8 @@ import java.util.regex.Pattern;
  * @author sugam
  */
 public class Validation {
-    private static final Pattern IDPATTERN = Pattern.compile("^[a-zA-Z]{3,4}\\d{2,4}$");
+    private static final Pattern IDPATTERN = Pattern.compile("^[a-zA-Z]+\\d+$");
     private static final Pattern FORMPATTERN = Pattern.compile("^[a-zA-Z]+$");
-    private static final Pattern EXPDATEPATTERN = Pattern.compile("^\\d{2}-\\d{2}-\\d{4}$");
-    private static final Pattern STRENGTHPATTERN = Pattern.compile("^\\d{1,4} mg$");
     private static final Pattern DOUBLESTRINGPATTERN = Pattern.compile("^[A-Za-z]+( [A-Za-z]+)*$");
     
     public static boolean checkNullorEmpty(String value){
@@ -33,16 +31,16 @@ public class Validation {
         return FORMPATTERN.matcher(form).matches();
     }
     
-    public static boolean checkExpDate(String date){
-        return EXPDATEPATTERN.matcher(date).matches();
+    public static boolean checkPrice(int price){
+        return price > 0;
     }
     
     public static boolean checkManufacturer(String manufacturer){
         return DOUBLESTRINGPATTERN.matcher(manufacturer).matches();
     }
     
-    public static boolean checkStrength(String strength){
-        return STRENGTHPATTERN.matcher(strength).matches();
+    public static boolean checkStrength(int strength){
+        return strength > 0 && strength < 2000;
     }
     
     public static boolean checkUsuage(String usuage){

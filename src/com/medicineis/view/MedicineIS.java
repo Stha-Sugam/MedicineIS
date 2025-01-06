@@ -5,6 +5,9 @@
 package com.MedicineIS.view;
 
 import com.MedicineIS.model.MedicineInfo;
+import com.medicineis.controller.algorithms.InsertionSort;
+import com.medicineis.controller.algorithms.MergeSort;
+import com.medicineis.controller.algorithms.SelectionSort;
 import com.medicineis.util.Validation;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -15,6 +18,7 @@ import javax.swing.JLabel;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author sugam.stha
@@ -24,55 +28,60 @@ public class MedicineIS extends javax.swing.JFrame {
     private java.awt.CardLayout bodyCardLayout;
     private java.awt.CardLayout mainCardLayout;
     private java.awt.CardLayout adminCardLayout;
-    
+
     private List<MedicineInfo> medicineList;
+
     /**
      * Creates new form MedicineIS
      */
-    public MedicineIS() {        
+    public MedicineIS() {
         initComponents();
         initializeBodyLayout();
         initializeMainLayout();
         initializeAdminLayout();
-        
+
         initialData();
+        
+        txtUsername.setText("admin");
+        txtPassword.setText("admin");
     }
+
     /**
      * Initializes layout for frame
      */
-    private void initializeMainLayout(){
+    private void initializeMainLayout() {
         mainCardLayout = new CardLayout();
         // setting cardlayout to frame
         getContentPane().setLayout(mainCardLayout);
-        
+
         // adding panels (cards) in the frame
-        getContentPane().add(pnlLogin,"LoginPanel");
-        getContentPane().add(pnlMain,"MainPanel");
-        
+        getContentPane().add(pnlLogin, "LoginPanel");
+        getContentPane().add(pnlMain, "MainPanel");
+
         // showing login panel as default
         changeMainPanels("LoginPanel");
     }
-    
+
     /**
      * Initializes layout for body panels
      */
-    private void initializeBodyLayout(){
+    private void initializeBodyLayout() {
         bodyCardLayout = new CardLayout();
         pnlNestedBody.setLayout(bodyCardLayout);
-        
+
         // adding panels in the body
-        pnlNestedBody.add(pnlHome,"HomePage");
+        pnlNestedBody.add(pnlHome, "HomePage");
         pnlNestedBody.add(pnlAdmin, "AdminPage");
-        
+
         // showing home page as dafault panel
         changeBodyPanels("HomePage");
         addBottomColor(lblHome);
     }
-    
+
     /**
      * initializes admin layout
      */
-    private void initializeAdminLayout(){
+    private void initializeAdminLayout() {
         adminCardLayout = new CardLayout();
         pnlAdmin.setLayout(adminCardLayout);
 
@@ -80,38 +89,38 @@ public class MedicineIS extends javax.swing.JFrame {
         pnlAdmin.add(pnlAddMedicine, "AdminAddMed");
         pnlAdmin.add(pnlAdminDashboard, "AdminDashboard");
         pnlAdmin.add(pnlUpdateMedicine, "AdminUpdate");
-        
+
         // showing admin dashboard as default panel
         changeAdminPanels("AdminDashboard");
     }
-    
-    
+
     /**
      * changes panels of frame according to the panel passed to parameters
-     * 
+     *
      * @param panelName the panel to be shown in the frame
      */
-    private void changeMainPanels(String panelName){
-        mainCardLayout.show(getContentPane(),panelName);
+    private void changeMainPanels(String panelName) {
+        mainCardLayout.show(getContentPane(), panelName);
     }
-    
+
     /**
      * changes panels of body panel according to the panel passed to parameters
-     * 
+     *
      * @param panelName the panel to be shown in the body panel
      */
-    private void changeBodyPanels(String panelName){
-        bodyCardLayout.show(pnlNestedBody,panelName);
+    private void changeBodyPanels(String panelName) {
+        bodyCardLayout.show(pnlNestedBody, panelName);
     }
 
     /**
      * changes panels of admin panel according to the panel passed to parameters
-     * 
+     *
      * @param panelName the panel to be shown in the admin panel
      */
-    private void changeAdminPanels(String panelName){
+    private void changeAdminPanels(String panelName) {
         adminCardLayout.show(pnlAdmin, panelName);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -121,13 +130,6 @@ public class MedicineIS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlHome = new javax.swing.JPanel();
-        lblBodyHeading = new javax.swing.JLabel();
-        lblWebDesc = new javax.swing.JLabel();
-        lblAdminDesc = new javax.swing.JLabel();
-        lblLinkHelper = new javax.swing.JLabel();
-        lblHomePagePhoto = new javax.swing.JLabel();
-        lblAdminLink = new javax.swing.JLabel();
         pnlMain = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
@@ -150,12 +152,18 @@ public class MedicineIS extends javax.swing.JFrame {
         lblAdminError = new javax.swing.JLabel();
         txtSearchBar = new javax.swing.JTextField();
         lblSearchIcon = new javax.swing.JLabel();
-        ComboxSorting = new javax.swing.JComboBox<>();
+        comboxSortItems = new javax.swing.JComboBox<>();
         lblAdminSearchError = new javax.swing.JLabel();
-        lblSortIcon = new javax.swing.JLabel();
-        lblSortBy = new javax.swing.JLabel();
         lblAddInfoVerification = new javax.swing.JLabel();
         lblConfirmationMsg = new javax.swing.JLabel();
+        lblSortText = new javax.swing.JLabel();
+        pnlHome = new javax.swing.JPanel();
+        lblBodyHeading = new javax.swing.JLabel();
+        lblWebDesc = new javax.swing.JLabel();
+        lblAdminDesc = new javax.swing.JLabel();
+        lblLinkHelper = new javax.swing.JLabel();
+        lblHomePagePhoto = new javax.swing.JLabel();
+        lblAdminLink = new javax.swing.JLabel();
         pnlUpdateMedicine = new javax.swing.JPanel();
         lblUpdateBack = new javax.swing.JLabel();
         txtUpdateMedId = new javax.swing.JTextField();
@@ -163,13 +171,13 @@ public class MedicineIS extends javax.swing.JFrame {
         txtUpdateMedStrength = new javax.swing.JTextField();
         txtUpdateMedDosageForm = new javax.swing.JTextField();
         txtUpdateMedManufacturer = new javax.swing.JTextField();
-        txtUpdateMedReleaseDate = new javax.swing.JTextField();
+        txtUpdateMedPrice = new javax.swing.JTextField();
         txtUpdateMedUsuage = new javax.swing.JTextField();
         lblUpdateMedBtn = new javax.swing.JLabel();
         lblUpdateIdError = new javax.swing.JLabel();
         lblUpdateDosageFormError = new javax.swing.JLabel();
         lblUpdateNameError = new javax.swing.JLabel();
-        lblUpdateReleaseDateError = new javax.swing.JLabel();
+        lblUpdatePriceError = new javax.swing.JLabel();
         lblUpdateStrengthError = new javax.swing.JLabel();
         lblUpdateManufacturerError = new javax.swing.JLabel();
         lblUpdateUsuageError = new javax.swing.JLabel();
@@ -181,13 +189,13 @@ public class MedicineIS extends javax.swing.JFrame {
         txtAddMedStrength = new javax.swing.JTextField();
         txtAddMedDosageForm = new javax.swing.JTextField();
         txtAddMedManufacturer = new javax.swing.JTextField();
-        txtAddMedReleaseDate = new javax.swing.JTextField();
+        txtAddMedPrice = new javax.swing.JTextField();
         txtAddMedUsuage = new javax.swing.JTextField();
         lblAddMedBtn = new javax.swing.JLabel();
         lblAddIdError = new javax.swing.JLabel();
         lblAddDosageFormError = new javax.swing.JLabel();
         lblAddNameError = new javax.swing.JLabel();
-        lblAddReleaseDateError = new javax.swing.JLabel();
+        lblAddPriceError = new javax.swing.JLabel();
         lblAddStrengthError = new javax.swing.JLabel();
         lblAddManufacturerError = new javax.swing.JLabel();
         lblAddUsuageError = new javax.swing.JLabel();
@@ -203,87 +211,6 @@ public class MedicineIS extends javax.swing.JFrame {
         lblLoginButton = new javax.swing.JLabel();
         lblUsernameError = new javax.swing.JLabel();
         lblPasswordError = new javax.swing.JLabel();
-
-        pnlHome.setBackground(new java.awt.Color(60, 60, 60));
-        pnlHome.setPreferredSize(new java.awt.Dimension(1276, 600));
-
-        lblBodyHeading.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        lblBodyHeading.setForeground(new java.awt.Color(100, 255, 200));
-        lblBodyHeading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBodyHeading.setText("<html>WELCOME TO OUR <span style=\"color:rgb(255,240,0);\">PHARMACEUTICALS </span>INFORMATION SYSTEM</html>");
-
-        lblWebDesc.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
-        lblWebDesc.setForeground(new java.awt.Color(100, 255, 200));
-        lblWebDesc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblWebDesc.setText("<html>Find extensive information on a wide range of medications easily. We <br>help healthcare providers and patients make informed decisions about medication use by providing quick access to accurate details like Name, <br>it's Manufacturers, Usuage and availability.</htmk>");
-
-        lblAdminDesc.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
-        lblAdminDesc.setForeground(new java.awt.Color(100, 255, 200));
-        lblAdminDesc.setText("<html>You can add new medicine information, delete records, & update existing entries to keep the database accurate.</html>");
-
-        lblLinkHelper.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblLinkHelper.setForeground(new java.awt.Color(100, 255, 200));
-        lblLinkHelper.setText("ACCESS ");
-
-        lblHomePagePhoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHomePagePhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/Homepagephoto.png"))); // NOI18N
-
-        lblAdminLink.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblAdminLink.setForeground(new java.awt.Color(255, 240, 0));
-        lblAdminLink.setText("ADMIN CONTROL");
-        lblAdminLink.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAdminLinkMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblAdminLinkMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblAdminLinkMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
-        pnlHome.setLayout(pnlHomeLayout);
-        pnlHomeLayout.setHorizontalGroup(
-            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(pnlHomeLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBodyHeading)
-                    .addGroup(pnlHomeLayout.createSequentialGroup()
-                        .addComponent(lblHomePagePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblWebDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAdminDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlHomeLayout.createSequentialGroup()
-                                .addComponent(lblLinkHelper)
-                                .addGap(0, 0, 0)
-                                .addComponent(lblAdminLink)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(100, 100, 100))
-        );
-        pnlHomeLayout.setVerticalGroup(
-            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHomeLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(lblBodyHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlHomeLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(lblHomePagePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlHomeLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(lblWebDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblAdminDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblAdminLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblLinkHelper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(134, Short.MAX_VALUE))
-        );
 
         pnlMain.setMinimumSize(new java.awt.Dimension(1300, 800));
 
@@ -301,7 +228,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblMainHead.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMainHead.setText("<html><span style=\"color: rgb(255,240,0)\">MEDICINE</span> INFORMATION SYSTEM</html>");
         lblMainHead.setMinimumSize(new java.awt.Dimension(570, 60));
-        lblMainHead.setPreferredSize(new java.awt.Dimension(700, 60));
+        lblMainHead.setPreferredSize(new java.awt.Dimension(650, 60));
 
         lblLogoutbtn.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblLogoutbtn.setForeground(new java.awt.Color(255, 90, 9));
@@ -309,7 +236,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblLogoutbtn.setText("LOG OUT");
         lblLogoutbtn.setToolTipText("");
         lblLogoutbtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 90, 9), 2, true));
-        lblLogoutbtn.setPreferredSize(new java.awt.Dimension(100, 23));
+        lblLogoutbtn.setPreferredSize(new java.awt.Dimension(100, 50));
         lblLogoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLogoutbtnMouseClicked(evt);
@@ -331,7 +258,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblMainHead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(165, 165, 165)
+                .addGap(190, 190, 190)
                 .addComponent(lblLogoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
@@ -344,7 +271,7 @@ public class MedicineIS extends javax.swing.JFrame {
                     .addComponent(lblMainHead, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlHeaderLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(lblLogoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblLogoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -359,7 +286,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/MedicineIS/resources/home.png"))); // NOI18N
         lblHome.setText("HOME PORTAL");
-        lblHome.setPreferredSize(new java.awt.Dimension(150, 50));
+        lblHome.setPreferredSize(new java.awt.Dimension(200, 50));
         lblHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblHomeMouseClicked(evt);
@@ -377,7 +304,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblAdminControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAdminControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/MedicineIS/resources/admin.png"))); // NOI18N
         lblAdminControl.setText("ADMIN CONTROL");
-        lblAdminControl.setPreferredSize(new java.awt.Dimension(150, 50));
+        lblAdminControl.setPreferredSize(new java.awt.Dimension(200, 50));
         lblAdminControl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAdminControlMouseClicked(evt);
@@ -395,11 +322,11 @@ public class MedicineIS extends javax.swing.JFrame {
         pnlMenuLayout.setHorizontalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGap(449, 449, 449)
+                .addGap(445, 445, 445)
                 .addComponent(lblHome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(lblAdminControl, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,7 +410,7 @@ public class MedicineIS extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Strength(mg)", "Dosage Form", "Manufacturer", "Release Date", "Usuage"
+                "Id", "Name", "Strength(mg)", "Dosage Form", "Manufacturer", "Price", "Usuage"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -525,7 +452,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblDatabasePageLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/medicine records.png"))); // NOI18N
 
         lblAdminError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
-        lblAdminError.setForeground(new java.awt.Color(255, 80, 0));
+        lblAdminError.setForeground(new java.awt.Color(200, 90, 0));
         lblAdminError.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         txtSearchBar.setBackground(new java.awt.Color(60, 60, 60));
@@ -537,7 +464,6 @@ public class MedicineIS extends javax.swing.JFrame {
         lblSearchIcon.setForeground(new java.awt.Color(100, 255, 200));
         lblSearchIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSearchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/search.png"))); // NOI18N
-        lblSearchIcon.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(60, 60, 60)), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(100, 255, 200))); // NOI18N
         lblSearchIcon.setFocusable(false);
         lblSearchIcon.setRequestFocusEnabled(false);
         lblSearchIcon.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -546,25 +472,21 @@ public class MedicineIS extends javax.swing.JFrame {
             }
         });
 
-        ComboxSorting.setBackground(new java.awt.Color(80, 80, 80));
-        ComboxSorting.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        ComboxSorting.setForeground(new java.awt.Color(100, 255, 200));
-        ComboxSorting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select an item", "ID", "Name", "Manufacturer", "Expiry Date", "Strength", "Dosage Form", "Batch Number" }));
-        ComboxSorting.setBorder(null);
-        ComboxSorting.setFocusable(false);
-        ComboxSorting.setLightWeightPopupEnabled(false);
-        ComboxSorting.setRequestFocusEnabled(false);
-
-        lblSortIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/sort.png"))); // NOI18N
-        lblSortIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblSortIconMouseEntered(evt);
+        comboxSortItems.setBackground(new java.awt.Color(153, 153, 153));
+        comboxSortItems.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        comboxSortItems.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID: A - Z", "ID: Z - A", "Name: A - Z", "Name: Z - A", "Strength: Low - High", "Strength: High - Low", "Price: Low - High", "Price: High - Low", "Manufacturer: A - Z", "Manufacturer: Z - A" }));
+        comboxSortItems.setBorder(null);
+        comboxSortItems.setFocusable(false);
+        comboxSortItems.setLightWeightPopupEnabled(false);
+        comboxSortItems.setPreferredSize(new java.awt.Dimension(200, 40));
+        comboxSortItems.setRequestFocusEnabled(false);
+        comboxSortItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxSortItemsActionPerformed(evt);
             }
         });
 
-        lblSortBy.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblSortBy.setForeground(new java.awt.Color(100, 255, 200));
-        lblSortBy.setText("Sort By:");
+        lblAdminSearchError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddInfoVerification.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblAddInfoVerification.setForeground(new java.awt.Color(100, 255, 200));
@@ -573,6 +495,10 @@ public class MedicineIS extends javax.swing.JFrame {
         lblConfirmationMsg.setForeground(new java.awt.Color(100, 255, 200));
         lblConfirmationMsg.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
+        lblSortText.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblSortText.setForeground(new java.awt.Color(100, 255, 200));
+        lblSortText.setText("Sort By:");
+
         javax.swing.GroupLayout pnlAdminDashboardLayout = new javax.swing.GroupLayout(pnlAdminDashboard);
         pnlAdminDashboard.setLayout(pnlAdminDashboardLayout);
         pnlAdminDashboardLayout.setHorizontalGroup(
@@ -580,9 +506,11 @@ public class MedicineIS extends javax.swing.JFrame {
             .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAdminAddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
+                        .addComponent(lblAddInfoVerification, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                        .addComponent(lblAddInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                    .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminDashboardLayout.createSequentialGroup()
                             .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(lblAdminError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
@@ -591,49 +519,38 @@ public class MedicineIS extends javax.swing.JFrame {
                                     .addComponent(lblDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblConfirmationMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblAddInfoVerification, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-                                .addComponent(lblAddInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                        .addComponent(scrPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
+                            .addComponent(lblDatabasePageLogo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(scrPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                                    .addComponent(lblDatabasePageLogo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                                            .addGap(6, 6, 6)
-                                            .addComponent(lblAdminSearchError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(0, 0, 0)
-                                    .addComponent(lblSearchIcon)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                                            .addComponent(ComboxSorting, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lblSortIcon))
-                                        .addComponent(lblSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                                .addComponent(txtSearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                                .addComponent(lblAdminSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 0, 0)
+                            .addComponent(lblSearchIcon)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblSortText, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                .addComponent(comboxSortItems, 0, 240, Short.MAX_VALUE)))
+                        .addComponent(lblAdminAddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
         );
         pnlAdminDashboardLayout.setVerticalGroup(
             pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
                 .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                        .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                                .addComponent(lblSortBy)
-                                .addGap(5, 5, 5)
-                                .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblSortIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                                    .addComponent(ComboxSorting, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
-                            .addGroup(pnlAdminDashboardLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblSearchIcon)
-                                    .addComponent(txtSearchBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(4, 4, 4)
+                                .addGap(17, 17, 17)
+                                .addComponent(lblSearchIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminDashboardLayout.createSequentialGroup()
+                                .addComponent(lblSortText)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(comboxSortItems, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, 0)
                         .addComponent(lblAdminSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminDashboardLayout.createSequentialGroup()
@@ -650,9 +567,9 @@ public class MedicineIS extends javax.swing.JFrame {
                 .addComponent(lblAdminError, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(lblAddInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(10, 10, 10)
                 .addComponent(lblAdminAddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(0, 0, 0)
                 .addComponent(lblAddInfoVerification, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -661,7 +578,7 @@ public class MedicineIS extends javax.swing.JFrame {
         pnlAdmin.setLayout(pnlAdminLayout);
         pnlAdminLayout.setHorizontalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1296, Short.MAX_VALUE)
+            .addGap(0, 1282, Short.MAX_VALUE)
             .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlAdminLayout.createSequentialGroup()
                     .addContainerGap()
@@ -670,7 +587,7 @@ public class MedicineIS extends javax.swing.JFrame {
         );
         pnlAdminLayout.setVerticalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 618, Short.MAX_VALUE)
+            .addGap(0, 614, Short.MAX_VALUE)
             .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlAdminLayout.createSequentialGroup()
                     .addContainerGap()
@@ -684,14 +601,14 @@ public class MedicineIS extends javax.swing.JFrame {
             pnlNestedBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNestedBodyLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 1296, Short.MAX_VALUE)
+                .addComponent(pnlAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 1282, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlNestedBodyLayout.setVerticalGroup(
             pnlNestedBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNestedBodyLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                .addComponent(pnlAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -699,15 +616,17 @@ public class MedicineIS extends javax.swing.JFrame {
         pnlBody.setLayout(pnlBodyLayout);
         pnlBodyLayout.setHorizontalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlNestedBody, javax.swing.GroupLayout.DEFAULT_SIZE, 1308, Short.MAX_VALUE)
-            .addComponent(pnlMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1308, Short.MAX_VALUE)
+            .addGroup(pnlBodyLayout.createSequentialGroup()
+                .addComponent(pnlNestedBody, javax.swing.GroupLayout.PREFERRED_SIZE, 1294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(pnlNestedBody, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
+                .addComponent(pnlNestedBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
@@ -715,7 +634,7 @@ public class MedicineIS extends javax.swing.JFrame {
         pnlMainLayout.setHorizontalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 1308, Short.MAX_VALUE)
+            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlMainLayout.setVerticalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -723,6 +642,87 @@ public class MedicineIS extends javax.swing.JFrame {
                 .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnlHome.setBackground(new java.awt.Color(60, 60, 60));
+        pnlHome.setPreferredSize(new java.awt.Dimension(1276, 600));
+
+        lblBodyHeading.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        lblBodyHeading.setForeground(new java.awt.Color(100, 255, 200));
+        lblBodyHeading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBodyHeading.setText("<html>WELCOME TO OUR <span style=\"color:rgb(255,240,0);\">PHARMACEUTICALS </span>INFORMATION SYSTEM</html>");
+
+        lblWebDesc.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        lblWebDesc.setForeground(new java.awt.Color(100, 255, 200));
+        lblWebDesc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblWebDesc.setText("<html>Find extensive information on a wide range of medications easily. We <br>help healthcare providers and patients make informed decisions about medication use by providing quick access to accurate details like Name, <br>it's Manufacturers, Usuage and availability.</htmk>");
+
+        lblAdminDesc.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        lblAdminDesc.setForeground(new java.awt.Color(100, 255, 200));
+        lblAdminDesc.setText("<html>You can add new medicine information, delete records, & update existing entries to keep the database accurate.</html>");
+
+        lblLinkHelper.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblLinkHelper.setForeground(new java.awt.Color(100, 255, 200));
+        lblLinkHelper.setText("ACCESS ");
+
+        lblHomePagePhoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHomePagePhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/medicineis/resources/Homepagephoto.png"))); // NOI18N
+
+        lblAdminLink.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblAdminLink.setForeground(new java.awt.Color(255, 240, 0));
+        lblAdminLink.setText("ADMIN CONTROL");
+        lblAdminLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAdminLinkMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAdminLinkMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAdminLinkMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
+        pnlHome.setLayout(pnlHomeLayout);
+        pnlHomeLayout.setHorizontalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(pnlHomeLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBodyHeading)
+                    .addGroup(pnlHomeLayout.createSequentialGroup()
+                        .addComponent(lblHomePagePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblWebDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAdminDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlHomeLayout.createSequentialGroup()
+                                .addComponent(lblLinkHelper)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblAdminLink)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(100, 100, 100))
+        );
+        pnlHomeLayout.setVerticalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHomeLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(lblBodyHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHomeLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(lblHomePagePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlHomeLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(lblWebDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblAdminDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblAdminLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblLinkHelper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pnlUpdateMedicine.setBackground(new java.awt.Color(60, 60, 60));
@@ -770,10 +770,10 @@ public class MedicineIS extends javax.swing.JFrame {
         txtUpdateMedManufacturer.setForeground(new java.awt.Color(100, 255, 200));
         txtUpdateMedManufacturer.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Manufacturer", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
 
-        txtUpdateMedReleaseDate.setBackground(new java.awt.Color(60, 60, 60));
-        txtUpdateMedReleaseDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        txtUpdateMedReleaseDate.setForeground(new java.awt.Color(100, 255, 200));
-        txtUpdateMedReleaseDate.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Release Date", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
+        txtUpdateMedPrice.setBackground(new java.awt.Color(60, 60, 60));
+        txtUpdateMedPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        txtUpdateMedPrice.setForeground(new java.awt.Color(100, 255, 200));
+        txtUpdateMedPrice.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Price (Rs.)", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
 
         txtUpdateMedUsuage.setBackground(new java.awt.Color(60, 60, 60));
         txtUpdateMedUsuage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
@@ -803,28 +803,28 @@ public class MedicineIS extends javax.swing.JFrame {
         });
 
         lblUpdateIdError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblUpdateIdError.setForeground(new java.awt.Color(255, 102, 102));
+        lblUpdateIdError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblUpdateDosageFormError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblUpdateDosageFormError.setForeground(new java.awt.Color(255, 102, 102));
+        lblUpdateDosageFormError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblUpdateNameError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblUpdateNameError.setForeground(new java.awt.Color(255, 102, 102));
+        lblUpdateNameError.setForeground(new java.awt.Color(200, 90, 0));
 
-        lblUpdateReleaseDateError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblUpdateReleaseDateError.setForeground(new java.awt.Color(255, 102, 102));
+        lblUpdatePriceError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblUpdatePriceError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblUpdateStrengthError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblUpdateStrengthError.setForeground(new java.awt.Color(255, 102, 102));
+        lblUpdateStrengthError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblUpdateManufacturerError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblUpdateManufacturerError.setForeground(new java.awt.Color(255, 102, 102));
+        lblUpdateManufacturerError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblUpdateUsuageError.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblUpdateUsuageError.setForeground(new java.awt.Color(255, 102, 102));
+        lblUpdateUsuageError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblUpdateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblUpdateError.setForeground(new java.awt.Color(255, 90, 9));
+        lblUpdateError.setForeground(new java.awt.Color(200, 90, 0));
         lblUpdateError.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
         javax.swing.GroupLayout pnlUpdateMedicineLayout = new javax.swing.GroupLayout(pnlUpdateMedicine);
@@ -850,8 +850,8 @@ public class MedicineIS extends javax.swing.JFrame {
                                     .addGroup(pnlUpdateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(pnlUpdateMedicineLayout.createSequentialGroup()
                                             .addGap(6, 6, 6)
-                                            .addComponent(lblUpdateReleaseDateError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(txtUpdateMedReleaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(lblUpdatePriceError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(txtUpdateMedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(pnlUpdateMedicineLayout.createSequentialGroup()
                                     .addGroup(pnlUpdateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtUpdateMedStrength, javax.swing.GroupLayout.Alignment.LEADING)
@@ -902,11 +902,11 @@ public class MedicineIS extends javax.swing.JFrame {
                 .addGroup(pnlUpdateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlUpdateMedicineLayout.createSequentialGroup()
                         .addGroup(pnlUpdateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUpdateMedReleaseDate)
+                            .addComponent(txtUpdateMedPrice)
                             .addComponent(txtUpdateMedName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, 0)
                         .addComponent(lblUpdateNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblUpdateReleaseDateError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUpdatePriceError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(pnlUpdateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUpdateMedStrength, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -921,9 +921,9 @@ public class MedicineIS extends javax.swing.JFrame {
                 .addComponent(lblUpdateUsuageError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(lblUpdateMedBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(lblUpdateError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pnlAddMedicine.setBackground(new java.awt.Color(60, 60, 60));
@@ -970,10 +970,10 @@ public class MedicineIS extends javax.swing.JFrame {
         txtAddMedManufacturer.setForeground(new java.awt.Color(100, 255, 200));
         txtAddMedManufacturer.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Manufacturer", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
 
-        txtAddMedReleaseDate.setBackground(new java.awt.Color(60, 60, 60));
-        txtAddMedReleaseDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        txtAddMedReleaseDate.setForeground(new java.awt.Color(100, 255, 200));
-        txtAddMedReleaseDate.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Release Date", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
+        txtAddMedPrice.setBackground(new java.awt.Color(60, 60, 60));
+        txtAddMedPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        txtAddMedPrice.setForeground(new java.awt.Color(100, 255, 200));
+        txtAddMedPrice.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Price (Rs.)", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
 
         txtAddMedUsuage.setBackground(new java.awt.Color(60, 60, 60));
         txtAddMedUsuage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
@@ -998,35 +998,35 @@ public class MedicineIS extends javax.swing.JFrame {
         });
 
         lblAddIdError.setBackground(new java.awt.Color(60, 60, 60));
-        lblAddIdError.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAddIdError.setForeground(new java.awt.Color(255, 102, 102));
+        lblAddIdError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblAddIdError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddDosageFormError.setBackground(new java.awt.Color(60, 60, 60));
-        lblAddDosageFormError.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAddDosageFormError.setForeground(new java.awt.Color(255, 102, 102));
+        lblAddDosageFormError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblAddDosageFormError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddNameError.setBackground(new java.awt.Color(60, 60, 60));
-        lblAddNameError.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAddNameError.setForeground(new java.awt.Color(255, 102, 102));
+        lblAddNameError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblAddNameError.setForeground(new java.awt.Color(200, 90, 0));
 
-        lblAddReleaseDateError.setBackground(new java.awt.Color(60, 60, 60));
-        lblAddReleaseDateError.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAddReleaseDateError.setForeground(new java.awt.Color(255, 102, 102));
+        lblAddPriceError.setBackground(new java.awt.Color(60, 60, 60));
+        lblAddPriceError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblAddPriceError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddStrengthError.setBackground(new java.awt.Color(60, 60, 60));
-        lblAddStrengthError.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAddStrengthError.setForeground(new java.awt.Color(255, 102, 102));
+        lblAddStrengthError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblAddStrengthError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddManufacturerError.setBackground(new java.awt.Color(60, 60, 60));
-        lblAddManufacturerError.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAddManufacturerError.setForeground(new java.awt.Color(255, 102, 102));
+        lblAddManufacturerError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblAddManufacturerError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddUsuageError.setBackground(new java.awt.Color(60, 60, 60));
-        lblAddUsuageError.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAddUsuageError.setForeground(new java.awt.Color(255, 102, 102));
+        lblAddUsuageError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblAddUsuageError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddMedClear.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 22)); // NOI18N
-        lblAddMedClear.setForeground(new java.awt.Color(255, 90, 9));
+        lblAddMedClear.setForeground(new java.awt.Color(200, 90, 0));
         lblAddMedClear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAddMedClear.setText("Clear");
         lblAddMedClear.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 90, 9), 2, true));
@@ -1042,8 +1042,7 @@ public class MedicineIS extends javax.swing.JFrame {
             }
         });
 
-        lblAddError.setForeground(new java.awt.Color(250, 80, 10));
-        lblAddError.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblAddError.setForeground(new java.awt.Color(200, 90, 0));
 
         javax.swing.GroupLayout pnlAddMedicineLayout = new javax.swing.GroupLayout(pnlAddMedicine);
         pnlAddMedicine.setLayout(pnlAddMedicineLayout);
@@ -1072,7 +1071,7 @@ public class MedicineIS extends javax.swing.JFrame {
                                         .addComponent(lblAddStrengthError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(15, 15, 15)
                                     .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtAddMedReleaseDate)
+                                        .addComponent(txtAddMedPrice)
                                         .addComponent(txtAddMedDosageForm)
                                         .addComponent(txtAddMedManufacturer)
                                         .addGroup(pnlAddMedicineLayout.createSequentialGroup()
@@ -1080,7 +1079,7 @@ public class MedicineIS extends javax.swing.JFrame {
                                             .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(lblAddDosageFormError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(lblAddReleaseDateError, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(lblAddPriceError, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addComponent(lblAddManufacturerError, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addComponent(txtAddMedUsuage, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlAddMedicineLayout.createSequentialGroup()
@@ -1090,8 +1089,8 @@ public class MedicineIS extends javax.swing.JFrame {
                                 .addComponent(lblAddMedClear, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblAddMedBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                    .addComponent(lblAddError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(lblAddError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblAddMedBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))))))
                 .addContainerGap(323, Short.MAX_VALUE))
         );
         pnlAddMedicineLayout.setVerticalGroup(
@@ -1110,7 +1109,7 @@ public class MedicineIS extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtAddMedName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAddMedReleaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtAddMedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblAddDosageFormError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1120,7 +1119,7 @@ public class MedicineIS extends javax.swing.JFrame {
                         .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtAddMedStrength, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtAddMedManufacturer, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblAddReleaseDateError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAddPriceError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAddStrengthError, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1133,9 +1132,9 @@ public class MedicineIS extends javax.swing.JFrame {
                 .addGroup(pnlAddMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAddMedBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAddMedClear, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblAddError, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(lblAddError, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1191,10 +1190,10 @@ public class MedicineIS extends javax.swing.JFrame {
         });
 
         lblUsernameError.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblUsernameError.setForeground(new java.awt.Color(250, 80, 0));
+        lblUsernameError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblPasswordError.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblPasswordError.setForeground(new java.awt.Color(250, 80, 0));
+        lblPasswordError.setForeground(new java.awt.Color(200, 90, 0));
 
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
@@ -1275,127 +1274,134 @@ public class MedicineIS extends javax.swing.JFrame {
 
     /**
      * adds bottom color to the label
-     * 
+     *
      * @param label the label passed for adding bottom color
      */
-    private void addBottomColor(JLabel label){
-        label.setBorder(BorderFactory.createMatteBorder(0,0,4,0, new Color(255,153,0)));
+    private void addBottomColor(JLabel label) {
+        label.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, new Color(255, 153, 0)));
     }
-    
+
     /**
      * removes bottom color to the label
-     * 
+     *
      * @param label the label passed for removing bottom color
      */
-    private void removeBottomColor(JLabel label){
+    private void removeBottomColor(JLabel label) {
         label.setBorder(BorderFactory.createEmptyBorder());
     }
-    
+
     /**
      * sets the background color orange to the label
-     * 
+     *
      * @param label the label passed for setting label color to orange
      */
-    private void setOrangeBgColor(JLabel label){
+    private void setOrangeBgColor(JLabel label) {
         label.repaint();
         label.setOpaque(true);
         label.setBackground(new Color(255, 153, 0));
-        label.setForeground(new Color(60,60,60));
+        label.setForeground(new Color(60, 60, 60));
     }
-    
+
     /**
      * sets the background color green to the label
-     * 
+     *
      * @param label the label passed for setting label color to green
      */
-    private void setGreenBgColor(JLabel label){
+    private void setGreenBgColor(JLabel label) {
         label.repaint();
         label.setOpaque(true);
         label.setBackground(new Color(100, 255, 200));
-        label.setForeground(new Color(60,60,60));
+        label.setForeground(new Color(60, 60, 60));
     }
-    
+
     /**
      * sets the background color red to the label
-     * 
+     *
      * @param label the label passed for setting label color to red
      */
-    private void setRedBgColor(JLabel label){
+    private void setRedBgColor(JLabel label) {
         label.repaint();
         label.setOpaque(true);
-        label.setBackground(new Color(255, 90, 0));
-        label.setForeground(new Color(60,60,60));
+        label.setBackground(new Color(200, 80, 0));
+        label.setForeground(new Color(230, 230, 230));
     }
-    
+
     /**
-     * 
-     * 
-     * @param label 
+     *
+     *
+     * @param label
      */
-    private void removeOrangeBgColor(JLabel label){
+    private void removeOrangeBgColor(JLabel label) {
         label.setOpaque(false);
         label.setForeground(new Color(255, 240, 0));
         label.repaint();
     }
-    
+
     /**
-     * 
-     * @param label 
+     *
+     * @param label
      */
-    private void removeGreenBgColor(JLabel label){
+    private void removeGreenBgColor(JLabel label) {
         label.setOpaque(false);
-        label.setForeground(new Color(100,255, 200));
+        label.setForeground(new Color(100, 255, 200));
         label.repaint();
     }
-    
+
     /**
-     * 
-     * @param label 
+     *
+     * @param label
      */
-    private void removeRedBgColor(JLabel label){
+    private void removeRedBgColor(JLabel label) {
         label.setOpaque(false);
         label.setForeground(new Color(255, 90, 0));
         label.repaint();
     }
+
     /**
-     * 
+     *
      */
-    private void loadHomePage(){
+    private void loadHomePage() {
+        
         addBottomColor(lblHome);
         removeBottomColor(lblAdminControl);
-        
+
         changeBodyPanels("HomePage");
     }
-    
-    private void loadAdminPage(){
+
+    private void loadAdminPage() {
+        performSorting();
         addBottomColor(lblAdminControl);
         removeBottomColor(lblHome);
-        
+
         changeBodyPanels("AdminPage");
     }
-    
+
     /**
      * 5 or more data added to arraylist. Then added to the table and displayed.
      */
-    private void initialData(){
+    private void initialData() {
         // initializing medicineList as Array list
         medicineList = new ArrayList();
-         
+
         // calling registerMedicine method to add objjects to the table
-        registerMedicine(new MedicineInfo("ASP325","Aspirin","325 mg","Tablet","Bayer AG","25-01-2026","Refiefs pain, fever, inflammation")); 
-        registerMedicine(new MedicineInfo("IBP200","Ibuprofen","200 mg","Liquid","Pfizer","12-02-2026","Reduces pain, inflammation, fever"));
-        registerMedicine(new MedicineInfo("TYL325","Tylenol","325 mg","Liquid","Johnson & Johnson","20-12-2025","Pain relief, fever reducer"));
-        registerMedicine(new MedicineInfo("MET500","Metformin","500 mg","Tablet","Bristol-Myers","10-05-2025","Diabetes blood sugar control"));
-        registerMedicine(new MedicineInfo("DEL200","Delsym","200 mg","Liquid","Reckitt Benckiser","06-03-2025","Cough suppressant"));
-        registerMedicine(new MedicineInfo("AMX500","Amoxicillin","500 mg","Capsule","Sandoz","10-02-2026","Bacterial infections"));
+        registerMedicine(new MedicineInfo("MED001", "Aspirin", 325, "Tablet", "Bayer AG", 4000, "Refiefs pain and inflammation"));
+        registerMedicine(new MedicineInfo("MED008", "Ibuprofen", 200, "Liquid", "Pfizer", 2500, "Reduces pain and fever"));
+        registerMedicine(new MedicineInfo("MED006", "Tylenol", 325, "Liquid", "Johnson and Johnson", 2000, "Pain relief and fever reducer"));
+        registerMedicine(new MedicineInfo("MED002", "Metformin", 500, "Tablet", "Bristol Myers", 3000, "Diabetes blood sugar control"));
+        registerMedicine(new MedicineInfo("MED007", "Delsym", 200, "Liquid", "Reckitt Benckiser", 3500, "Cough suppressant"));
+        registerMedicine(new MedicineInfo("MED003", "Amoxicillin", 500, "Capsule", "Sandoz", 1800, "Bacterial infections"));
+        registerMedicine(new MedicineInfo("MED005", "Omeprazole", 20, "Capsule", "AstraZeneca", 2200, "Treats acid reflux and ulcers"));
+        registerMedicine(new MedicineInfo("MED004", "Atorvastatin", 40, "Tablet", "Ranbaxy", 1700, "Lowers cholesterol levels"));
+        registerMedicine(new MedicineInfo("MED010", "Cetirizine", 10, "Tablet", "Sanofi", 1800, "Relieves allergy symptoms"));
+        registerMedicine(new MedicineInfo("MED009", "Ciprofloxacin", 500, "Tablet", "Sun Pharma", 1400, "Treats bacterial infections"));
     }
-    
+
     private void registerMedicine(MedicineInfo medicine) {
         medicineList.add(medicine);
-        
+
         DefaultTableModel model = (DefaultTableModel) tblMedicineDatabase.getModel();
         model.addRow(new Object[]{
-            medicine.getMedID(), medicine.getMedName(), medicine.getMedStrength(), medicine.getMedDosageForm(), medicine.getMedManufacturer(), medicine.getMedExpiryDate(), medicine.getMedUsuage()
+            medicine.getMedID(), medicine.getMedName(), medicine.getMedStrength(), medicine.getMedDosageForm(), medicine.getMedManufacturer(), medicine.getMedPrice(), medicine.getMedUsuage()
         });
     }
 
@@ -1443,29 +1449,28 @@ public class MedicineIS extends javax.swing.JFrame {
 
     private void lblLoginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginButtonMouseClicked
         String username = txtUsername.getText();
-        String password = new String (txtPassword.getPassword());
+        String password = new String(txtPassword.getPassword());
         lblUsernameError.setText("");
         lblPasswordError.setText("");
-        if(Validation.checkNullorEmpty(username)){
+        if (Validation.checkNullorEmpty(username)) {
             lblUsernameError.setText("Username Required");
         }
-        
-        if(Validation.checkNullorEmpty(password)){
+
+        if (Validation.checkNullorEmpty(password)) {
             lblPasswordError.setText("Password Required");
         }
 
-        if(!Validation.checkNullorEmpty(username) && !Validation.checkNullorEmpty(password)){
-            if(username.equals("admin") && password.equals("admin")){
+        if (!Validation.checkNullorEmpty(username) && !Validation.checkNullorEmpty(password)) {
+            if (username.equals("admin") && password.equals("admin")) {
                 txtUsername.setText("");
                 txtPassword.setText("");
                 changeMainPanels("MainPanel");
-            }
-            else{
-                if(!username.equals("admin")){
+            } else {
+                if (!username.equals("admin")) {
                     lblUsernameError.setText("Username not found");
                 }
-                if(username.equals("admin")){
-                    if(!password.equals("admin")){
+                if (username.equals("admin")) {
+                    if (!password.equals("admin")) {
                         lblPasswordError.setText("Password Incorrect");
                     }
                 }
@@ -1492,37 +1497,38 @@ public class MedicineIS extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUpdateBtnMouseExited
 
     private void lblUpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdateBtnMouseClicked
+        lblUpdateError.setText("");
         int tableIndex = tblMedicineDatabase.getSelectedRow();
-        
-        if (tableIndex == -1){
-            lblAdminError.setText("One row form the table should be selected to Update");
-        }
-        else{
+
+        if (tableIndex == -1) {
+            lblAdminError.setText("One row from the table should be selected to Update");
+        } else {
             int arrayListIndex = tblMedicineDatabase.convertRowIndexToModel(tableIndex);
-        
+
             MedicineInfo medicine = medicineList.get(arrayListIndex);
-            
-            
+
             String medId = medicine.getMedID();
             String medName = medicine.getMedName();
-            String medStrength = medicine.getMedStrength();
+            String medStrength = String.valueOf(medicine.getMedStrength());
             String medDosageForm = medicine.getMedDosageForm();
             String medManufacturer = medicine.getMedManufacturer();
-            String medExpDate = medicine.getMedExpiryDate();
+            String medPrice = String.valueOf(medicine.getMedPrice());
             String medUse = medicine.getMedUsuage();
+
+            clearUpdateTxts();
 
             changeAdminPanels("AdminUpdate");
             txtUpdateMedId.setText(medId);
             txtUpdateMedName.setText(medName);
-            txtUpdateMedStrength.setText(String.valueOf(medStrength));
+            txtUpdateMedStrength.setText(medStrength);
             txtUpdateMedDosageForm.setText(medDosageForm);
             txtUpdateMedManufacturer.setText(medManufacturer);
-            txtUpdateMedReleaseDate.setText(medExpDate);
+            txtUpdateMedPrice.setText(medPrice);
             txtUpdateMedUsuage.setText(medUse);
-            
+
         }
     }//GEN-LAST:event_lblUpdateBtnMouseClicked
-  
+
     private void lblDeleteBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteBtnMouseEntered
         lblDeleteBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         setGreenBgColor(lblDeleteBtn);
@@ -1534,26 +1540,27 @@ public class MedicineIS extends javax.swing.JFrame {
 
     private void lblDeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteBtnMouseClicked
         int tableIndex = tblMedicineDatabase.getSelectedRow();
-        if (tableIndex == -1){
+        if (tableIndex == -1) {
             lblAdminError.setText("One row from the table should be selected to Delete");
-        }
-        else{
-            int response = JOptionPane.showConfirmDialog(this, "Do you want to proceed?","CONFIRMATION",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            
-            if (response == JOptionPane.YES_OPTION){
+        } else {
+            int response = JOptionPane.showConfirmDialog(this, "Do you want to proceed?", "CONFIRMATION", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (response == JOptionPane.YES_OPTION) {
                 int arrayListIndex = tblMedicineDatabase.convertRowIndexToModel(tableIndex);
-        
+
                 medicineList.remove(arrayListIndex);
                 DefaultTableModel table = (DefaultTableModel) tblMedicineDatabase.getModel();
                 table.removeRow(tableIndex);
-
+                
+                lblConfirmationMsg.setForeground(new Color(100, 255, 200));
+                performSorting();
                 lblConfirmationMsg.setText("Medicine information has been succesfully deleted");
                 lblAdminError.setText("");
-            }
-            else{
+            } else {
                 lblConfirmationMsg.setText("Medicine information deletion has been cancelled");
+                lblConfirmationMsg.setForeground(new Color(200, 80, 0));
+                lblAdminError.setText("");
             }
-            
         }
     }//GEN-LAST:event_lblDeleteBtnMouseClicked
 
@@ -1564,6 +1571,7 @@ public class MedicineIS extends javax.swing.JFrame {
 
     private void lblAdminAddBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminAddBtnMouseExited
         removeGreenBgColor(lblAdminAddBtn);
+        lblAddError.setText("");
     }//GEN-LAST:event_lblAdminAddBtnMouseExited
 
     private void lblAdminAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminAddBtnMouseClicked
@@ -1614,82 +1622,161 @@ public class MedicineIS extends javax.swing.JFrame {
         removeGreenBgColor(lblUpdateMedBtn);
     }//GEN-LAST:event_lblUpdateMedBtnMouseExited
 
-    private void clearUpdateTxtErrors(){
+    private void clearUpdateTxts() {
         txtUpdateMedId.setText("");
         txtUpdateMedName.setText("");
         txtUpdateMedStrength.setText("");
         txtUpdateMedDosageForm.setText("");
-        txtUpdateMedReleaseDate.setText("");
+        txtUpdateMedPrice.setText("");
         txtUpdateMedUsuage.setText("");
         txtUpdateMedManufacturer.setText("");
-
 
         lblUpdateIdError.setText("");
         lblUpdateDosageFormError.setText("");
         lblUpdateNameError.setText("");
-        lblUpdateReleaseDateError.setText("");
+        lblUpdatePriceError.setText("");
         lblUpdateStrengthError.setText("");
         lblUpdateManufacturerError.setText("");
         lblUpdateUsuageError.setText("");
     }
+
     private void lblUpdateMedBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdateMedBtnMouseClicked
-    int tableIndex = tblMedicineDatabase.getSelectedRow();
+        try{
+            // Get the updated data from the text fields
+            String medId = txtUpdateMedId.getText();
+            String medName = txtUpdateMedName.getText();
+            String medForm = txtUpdateMedDosageForm.getText();
+            String medStrength = String.valueOf(txtUpdateMedStrength.getText());
+            String medManufacturer = txtUpdateMedManufacturer.getText();
+            String medPrice = String.valueOf(txtUpdateMedPrice.getText());
+            String medUsuage = txtUpdateMedUsuage.getText();
 
-    // If no row is selected break the process
-    if (tableIndex == -1) {
-        return;
-    }
+            boolean empty = false;
+            boolean valid = true;
+            // if any text fields are empty, give warning according to that
+            if (Validation.checkNullorEmpty(medId)) {
+                lblUpdateIdError.setText("Medicine id required");
+                empty = true;
+            } else if (!Validation.checkId(medId)) {
+                lblUpdateIdError.setText("Should only contain alphabets and numbers");
+                valid = false;
+            }
+            if (Validation.checkNullorEmpty(medName)) {
+                lblUpdateNameError.setText("Medicine name required");
+                empty = true;
+            } else if (!Validation.checkName(medName)) {
+                lblUpdateNameError.setText("Should be Alphabets");
+                valid = false;
+            }
+            if (Validation.checkNullorEmpty(medForm)) {
+                lblUpdateDosageFormError.setText("Medicine form required");
+                empty = true;
+            } else if (!Validation.checkForm(medForm)) {
+                lblUpdateDosageFormError.setText("Should be Alphabets");
+                valid = false;
+            }
 
-    // Convert the table row index to model index in case of sorting
-    int listIndex = tblMedicineDatabase.convertRowIndexToModel(tableIndex);
+            if (Validation.checkNullorEmpty(medStrength)) {
+                lblUpdateStrengthError.setText("Medicine strength required");
+                empty = true;
+            } else {
+                try{
+                    int numMedStrength = Integer.parseInt(medStrength);
+                    if (!Validation.checkStrength(numMedStrength)) {
+                        lblUpdateStrengthError.setText("Should be between 0 to 2000");
+                        valid = false;
+                    }
+                }
+                catch(NumberFormatException ex){
+                    lblUpdateStrengthError.setText("Should be a number.");
+                }
+            }
+            if (Validation.checkNullorEmpty(medManufacturer)) {
+                lblUpdateManufacturerError.setText("Medicine manufacturer required");
+                empty = true;
+            } else if (!Validation.checkManufacturer(medManufacturer)) {
+                lblUpdateManufacturerError.setText("Not Valid");
+                valid = false;
+            }
 
-    // Get the updated data from the text fields
-    String medId = txtUpdateMedId.getText();
-    String medName = txtUpdateMedName.getText();
-    String medForm = txtUpdateMedDosageForm.getText();
-    String medStrength = txtUpdateMedStrength.getText();
-    String medManufacturer = txtUpdateMedManufacturer.getText();
-    String medExpDate = txtUpdateMedReleaseDate.getText();
-    String medUsuage = txtUpdateMedUsuage.getText();
+            if (Validation.checkNullorEmpty(medPrice)) {
+                lblUpdatePriceError.setText("Medicine price required.");
+                empty = true;
+            } else{
+                try{
+                    int numMedPrice = Integer.parseInt(medPrice);
+                    if (!Validation.checkPrice(numMedPrice)) {
+                        lblUpdatePriceError.setText("Price should be a valid number.");
+                        valid = false;
+                    }
+                }
+                catch(NumberFormatException ex){
+                    lblUpdatePriceError.setText("Should be a number.");
+                }
+            }
+            if (Validation.checkNullorEmpty(medUsuage)) {
+                lblUpdateUsuageError.setText("Medicine usuage required.");
+                empty = true;
+            } else if (!Validation.checkUsuage(medUsuage)) {
+                lblUpdateUsuageError.setText("Special Characters not allowed.");
+                valid = false;
+            }
 
-    // Retrieve the MedicineInfo object from the ArrayList using the table index
-    MedicineInfo medicine = medicineList.get(listIndex);
+            // if any textfields are empty or validation error, stop the process
+            if (empty || !valid) {
+                return;
+            }
+            // get the index of the object in the table
+            int tableIndex = tblMedicineDatabase.getSelectedRow();
+            // Convert the table row index to model index in case of sorting
+            int listIndex = tblMedicineDatabase.convertRowIndexToModel(tableIndex);
+            // Retrieve the MedicineInfo object from the ArrayList using the table index
+            MedicineInfo medicine = medicineList.get(listIndex);
+            
+            if (medicine.getMedID().equals(medId)){
+                // Update the MedicineInfo object with the new values from the text fields
+                medicine.setMedID(medId);
+                medicine.setMedName(medName);
+                medicine.setMedDosageForm(medForm);
+                medicine.setMedStrength(Integer.parseInt(medStrength));
+                medicine.setMedManufacturer(medManufacturer);
+                medicine.setMedPrice(Integer.parseInt(medPrice));
+                medicine.setMedUsuage(medUsuage);
 
-    // Update the MedicineInfo object with the new values from the text fields
-    medicine.setMedID(medId);
-    medicine.setMedName(medName);
-    medicine.setMedDosageForm(medForm);
-    medicine.setMedStrength(medStrength);
-    medicine.setMedManufacturer(medManufacturer);
-    medicine.setMedExpiryDate(medExpDate);
-    medicine.setMedUsuage(medUsuage);
+                // Updating the corresponding table row with the new updated values
+                tblMedicineDatabase.setValueAt(medId, tableIndex, 0);
+                tblMedicineDatabase.setValueAt(medName, tableIndex, 1);
+                tblMedicineDatabase.setValueAt(medStrength, tableIndex, 2);
+                tblMedicineDatabase.setValueAt(medForm, tableIndex, 3);
+                tblMedicineDatabase.setValueAt(medManufacturer, tableIndex, 4);
+                tblMedicineDatabase.setValueAt(medPrice, tableIndex, 5);
+                tblMedicineDatabase.setValueAt(medUsuage, tableIndex, 6);
 
-    // Update the corresponding table row with the new values
-    tblMedicineDatabase.setValueAt(medId, tableIndex, 0);
-    tblMedicineDatabase.setValueAt(medName, tableIndex, 1);
-    tblMedicineDatabase.setValueAt(medStrength, tableIndex, 2);
-    tblMedicineDatabase.setValueAt(medForm, tableIndex, 3);
-    tblMedicineDatabase.setValueAt(medManufacturer, tableIndex, 4);
-    tblMedicineDatabase.setValueAt(medExpDate, tableIndex, 5);
-    tblMedicineDatabase.setValueAt(medUsuage, tableIndex, 6);
+                performSorting();
+                
+                // Refresh the table to ensure it displays the updated content
+                tblMedicineDatabase.revalidate();
 
-    // Refresh the table to ensure it displays the updated content
-    tblMedicineDatabase.revalidate();
-    tblMedicineDatabase.repaint();
-
-    // Switch back to the dashboard panel and display the success message
-    changeAdminPanels("AdminDashboard");
-    lblConfirmationMsg.setText("Medicine Information has been successfully updated.");
-
+                // Switch back to the dashboard panel and display the success message
+                changeAdminPanels("AdminDashboard");
+                lblConfirmationMsg.setForeground(new Color(100, 255, 200));
+                lblConfirmationMsg.setText("Medicine Information has been successfully updated.");
+                lblAdminError.setText("");
+            }
+            else{
+                lblUpdateError.setText("Medicine Id cannot be changed.");
+            }
+        }
+        catch(NumberFormatException ex){}
     }//GEN-LAST:event_lblUpdateMedBtnMouseClicked
 
-    private void clearAddTxt(){
+    private void clearAddTxt() {
         txtAddMedId.setText("");
         txtAddMedName.setText("");
         txtAddMedStrength.setText("");
         txtAddMedDosageForm.setText("");
         txtAddMedManufacturer.setText("");
-        txtAddMedReleaseDate.setText("");
+        txtAddMedPrice.setText("");
         txtAddMedUsuage.setText("");
 
         lblAddIdError.setText("");
@@ -1697,119 +1784,131 @@ public class MedicineIS extends javax.swing.JFrame {
         lblAddNameError.setText("");
         lblAddStrengthError.setText("");
         lblAddManufacturerError.setText("");
-        lblAddReleaseDateError.setText("");
+        lblAddPriceError.setText("");
         lblAddUsuageError.setText("");
     }
     private void lblAddMedBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMedBtnMouseClicked
-        // setting all the labels to  empty
+        // setting all the labels to empty
         lblAddIdError.setText("");
         lblAddNameError.setText("");
         lblAddDosageFormError.setText("");
         lblAddStrengthError.setText("");
         lblAddManufacturerError.setText("");
-        lblAddReleaseDateError.setText("");
+        lblAddPriceError.setText("");
         lblAddUsuageError.setText("");
-        
-        // extracting texts from the textfields
-        String medId = txtAddMedId.getText();
-        String medName = txtAddMedName.getText();
-        String medForm = txtAddMedDosageForm.getText();
-        String medStrength = txtAddMedStrength.getText();
-        String medManufacturer = txtAddMedManufacturer.getText();
-        String medExpDate = txtAddMedReleaseDate.getText();
-        String medUsuage = txtAddMedUsuage.getText();
-        
-        
-        boolean empty = false;
-        boolean valid = true;
-        // if any text fields are empty, give warning according to that
-        if (Validation.checkNullorEmpty(medId)){
-            lblAddIdError.setText("Medicine id required");
-            empty = true;
-        } else if(!Validation.checkId(medId)){
-            lblAddIdError.setText("Format eg. ABC123, ABED1234");
-            valid = false;
-        }
-        if (Validation.checkNullorEmpty(medName)){
-            lblAddNameError.setText("Medicine name required");
-            empty = true;
-        } else if(!Validation.checkName(medName)){
-            lblAddNameError.setText("Should be Alphabets");
-            valid = false;
-        }
-        if (Validation.checkNullorEmpty(medForm)){
-            lblAddDosageFormError.setText("Medicine form required");
-            empty = true;
-        } else if(!Validation.checkForm(medForm)){
-            lblAddDosageFormError.setText("Should be Alphabets");
-            valid = false;
-        }
-        if(Validation.checkNullorEmpty(medStrength)){
-            lblAddStrengthError.setText("Medicine strength required");
-            empty = true;
-        } else if(!Validation.checkStrength(medStrength)){
-            lblAddStrengthError.setText("Format eg. 50 mg, 100mg, 1500mg");
-            valid = false;
-        }
-        if(Validation.checkNullorEmpty(medManufacturer)){
-            lblAddManufacturerError.setText("Medicine manufacturer required");
-            empty = true;
-        } else if(!Validation.checkManufacturer(medManufacturer)){
-            lblAddManufacturerError.setText("Not Valid");
-            valid = false;
-        }
-        if(Validation.checkNullorEmpty(medExpDate)){
-            lblAddReleaseDateError.setText("Medicine expiry date required");
-            empty = true;
-        } else if(!Validation.checkExpDate(medExpDate)){
-            lblAddReleaseDateError.setText("Not Valid");
-            valid = false;
-        }
-        if(Validation.checkNullorEmpty(medUsuage)){
-            lblAddUsuageError.setText("Medicine usuage required");
-            empty = true;
-        } else if(!Validation.checkUsuage(medUsuage)){
-            lblAddUsuageError.setText("Not Valid");
-            valid = false;
-        }
-        
-        // if any textfields are empty, stop the process
-        if (empty) {
-            lblAddError.setText("Please fill in all required fields");
-            return;
-        }
-        // if any validations fail, stop the process
-        if (!valid) {
-            lblAddError.setText("Some fields have invalid values");
-            return;
-        }
 
-        // if the Id is already present in the list, dont add to the list otherwise add.
-        boolean found = false;
-        for(MedicineInfo medicine : medicineList){
-            if (medicine.getMedID().equals(medId)){
-                lblAddError.setText("Data is already added to the system");
-                found = true;
-                break;
+        try {
+            // extracting texts from the textfields
+            String medId = txtAddMedId.getText();
+            String medName = txtAddMedName.getText();
+            String medForm = txtAddMedDosageForm.getText();
+            String medStrength = txtAddMedStrength.getText();
+            String medManufacturer = txtAddMedManufacturer.getText();
+            String medPrice = txtAddMedPrice.getText();
+            String medUsuage = txtAddMedUsuage.getText();
+
+            boolean empty = false;
+            boolean valid = true;
+            // if any text fields are empty, give warning according to that
+            if (Validation.checkNullorEmpty(medId)) {
+                lblAddIdError.setText("Medicine id required.");
+                empty = true;
+            } else if (!Validation.checkId(medId)) {
+                lblAddIdError.setText("Format eg. ABC123, ABED1234.");
+                valid = false;
             }
-        }
-            if(!found){
-                MedicineInfo newMedicine = new MedicineInfo(medId, medName, medStrength, medForm, medManufacturer, medExpDate, medUsuage);
-                registerMedicine(newMedicine);
+            if (Validation.checkNullorEmpty(medName)) {
+                lblAddNameError.setText("Medicine name required.");
+                empty = true;
+            } else if (!Validation.checkName(medName)) {
+                lblAddNameError.setText("Should be Alphabets.");
+                valid = false;
+            }
+            if (Validation.checkNullorEmpty(medForm)) {
+                lblAddDosageFormError.setText("Medicine form required.");
+                empty = true;
+            } else if (!Validation.checkForm(medForm)) {
+                lblAddDosageFormError.setText("eg. Liquid, Capsule, Syrup, Pill.");
+                valid = false;
+            }
+            String strMedStrength = String.valueOf(medStrength);
+            if (Validation.checkNullorEmpty(strMedStrength)) {
+                lblAddStrengthError.setText("Medicine strength required.");
+                empty = true;
+            } else{
+                try{
+                    int numMedStrength = Integer.parseInt(medStrength);
+                    if (!Validation.checkStrength(numMedStrength)) {
+                        lblAddStrengthError.setText("Should be between 0 to 2000.");
+                        valid = false;
+                    }
+                }
+                catch(NumberFormatException ex){
+                    lblAddStrengthError.setText("Should be a number");
+                }
+            }
+            if (Validation.checkNullorEmpty(medManufacturer)) {
+                lblAddManufacturerError.setText("Medicine manufacturer required.");
+                empty = true;
+            } else if (!Validation.checkManufacturer(medManufacturer)) {
+                lblAddManufacturerError.setText("Not Valid.");
+                valid = false;
+            }
+            String strMedPrice = String.valueOf(medPrice);
+            if (Validation.checkNullorEmpty(strMedPrice)) {
+                lblAddPriceError.setText("Medicine price is required.");
+                empty = true;
+            } else {
+                try{
+                    int numMedPrice = Integer.parseInt(medPrice);
+                    if(!Validation.checkPrice(numMedPrice)) {
+                        lblAddPriceError.setText("Price should be more than 0.");
+                        valid = false;
+                    }
+                }
+                catch(NumberFormatException ex){
+                    lblAddPriceError.setText("Should be a number");
+                }
+            }
+            if (Validation.checkNullorEmpty(medUsuage)) {
+                lblAddUsuageError.setText("Medicine usuage required.");
+                empty = true;
+            } else if (!Validation.checkUsuage(medUsuage)) {
+                lblAddUsuageError.setText("No special character allowed.");
+                valid = false;
+            }
 
-                medicineList.add(newMedicine);
+            // if any textfields are empty or validation error, stop the process
+            if (empty || !valid) {
+                return;
+            }
+
+            // if the Id is already present in the list, dont add to the list otherwise add.
+            boolean found = false;
+            for (MedicineInfo medicine : medicineList) {
+                if (medicine.getMedID().equals(medId)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                MedicineInfo newMedicine = new MedicineInfo(medId, medName, Integer.parseInt(medStrength), medForm, medManufacturer, Integer.parseInt(medPrice), medUsuage);
+                registerMedicine(newMedicine);
+                
                 changeAdminPanels("AdminDashboard");
+                performSorting();
                 lblConfirmationMsg.setText("Medicine Information has been successfully Added");
             }
+            else{
+                lblAddError.setText("This medicine id already exists.");
+            }
+        } catch (NumberFormatException ex) {}
+
     }//GEN-LAST:event_lblAddMedBtnMouseClicked
 
     private void lblSearchIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchIconMouseEntered
         lblSearchIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_lblSearchIconMouseEntered
-
-    private void lblSortIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSortIconMouseEntered
-        lblSortIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_lblSortIconMouseEntered
 
     private void txtUpdateMedUsuageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUpdateMedUsuageActionPerformed
         // TODO add your handling code here:
@@ -1830,12 +1929,12 @@ public class MedicineIS extends javax.swing.JFrame {
 
     private void lblAdminLinkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminLinkMouseEntered
         lblAdminLink.repaint();
-        lblAdminLink.setForeground(new Color(230,230,230));
+        lblAdminLink.setForeground(new Color(230, 230, 230));
         lblAdminLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_lblAdminLinkMouseEntered
 
     private void lblAdminLinkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminLinkMouseExited
-        lblAdminLink.setForeground(new Color(255,240,0));
+        lblAdminLink.setForeground(new Color(255, 240, 0));
         lblAdminLink.repaint();
     }//GEN-LAST:event_lblAdminLinkMouseExited
 
@@ -1846,8 +1945,45 @@ public class MedicineIS extends javax.swing.JFrame {
         changeAdminPanels("AdminDashboard");
     }//GEN-LAST:event_lblAdminLinkMouseClicked
 
-    
-    
+    public void performSorting(){
+        String selectedItem = comboxSortItems.getSelectedItem().toString();
+        System.out.println(selectedItem);
+        
+        if (selectedItem.equals("ID: A - Z") 
+            || selectedItem.equals("ID: Z - A") 
+            || selectedItem.equals("Manufacturer: A - Z") 
+            || selectedItem.equals("Manufacturer: Z - A")){
+            SelectionSort.performSelectionSort(medicineList, selectedItem);
+        }
+        else if(selectedItem.equals("Name: A - Z") || selectedItem.equals("Name: Z - A")){
+            InsertionSort.performInsertionSort(medicineList, selectedItem);
+        }
+        else if(selectedItem.equals("Price: High - Low") || selectedItem.equals("Price: Low - High")
+            || selectedItem.equals("Strength: High - Low") || selectedItem.equals("Strength: Low - High")){
+            MergeSort.performMergeSort(medicineList, selectedItem);
+        }
+
+        
+        DefaultTableModel table = (DefaultTableModel) tblMedicineDatabase.getModel();
+        table.setRowCount(0);
+
+        for(MedicineInfo medicine: medicineList){
+            table.addRow(new Object[]{
+                medicine.getMedID(), 
+                medicine.getMedName(), 
+                medicine.getMedStrength(), 
+                medicine.getMedDosageForm(), 
+                medicine.getMedManufacturer(), 
+                medicine.getMedPrice(), 
+                medicine.getMedUsuage()
+            });
+            tblMedicineDatabase.revalidate();
+        }
+    }
+    private void comboxSortItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxSortItemsActionPerformed
+        performSorting();
+    }//GEN-LAST:event_comboxSortItemsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1884,7 +2020,7 @@ public class MedicineIS extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboxSorting;
+    private javax.swing.JComboBox<String> comboxSortItems;
     private javax.swing.JLabel lblAddBack;
     private javax.swing.JLabel lblAddDosageFormError;
     private javax.swing.JLabel lblAddError;
@@ -1895,7 +2031,7 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JLabel lblAddMedBtn;
     private javax.swing.JLabel lblAddMedClear;
     private javax.swing.JLabel lblAddNameError;
-    private javax.swing.JLabel lblAddReleaseDateError;
+    private javax.swing.JLabel lblAddPriceError;
     private javax.swing.JLabel lblAddStrengthError;
     private javax.swing.JLabel lblAddUsuageError;
     private javax.swing.JLabel lblAdminAddBtn;
@@ -1919,8 +2055,7 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JLabel lblMainHead;
     private javax.swing.JLabel lblPasswordError;
     private javax.swing.JLabel lblSearchIcon;
-    private javax.swing.JLabel lblSortBy;
-    private javax.swing.JLabel lblSortIcon;
+    private javax.swing.JLabel lblSortText;
     private javax.swing.JLabel lblSubHeading1Login;
     private javax.swing.JLabel lblSubHeading2Login;
     private javax.swing.JLabel lblUpdateBack;
@@ -1931,7 +2066,7 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JLabel lblUpdateManufacturerError;
     private javax.swing.JLabel lblUpdateMedBtn;
     private javax.swing.JLabel lblUpdateNameError;
-    private javax.swing.JLabel lblUpdateReleaseDateError;
+    private javax.swing.JLabel lblUpdatePriceError;
     private javax.swing.JLabel lblUpdateStrengthError;
     private javax.swing.JLabel lblUpdateUsuageError;
     private javax.swing.JLabel lblUsernameError;
@@ -1953,7 +2088,7 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JTextField txtAddMedId;
     private javax.swing.JTextField txtAddMedManufacturer;
     private javax.swing.JTextField txtAddMedName;
-    private javax.swing.JTextField txtAddMedReleaseDate;
+    private javax.swing.JTextField txtAddMedPrice;
     private javax.swing.JTextField txtAddMedStrength;
     private javax.swing.JTextField txtAddMedUsuage;
     private javax.swing.JPasswordField txtPassword;
@@ -1962,7 +2097,7 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JTextField txtUpdateMedId;
     private javax.swing.JTextField txtUpdateMedManufacturer;
     private javax.swing.JTextField txtUpdateMedName;
-    private javax.swing.JTextField txtUpdateMedReleaseDate;
+    private javax.swing.JTextField txtUpdateMedPrice;
     private javax.swing.JTextField txtUpdateMedStrength;
     private javax.swing.JTextField txtUpdateMedUsuage;
     private javax.swing.JTextField txtUsername;
