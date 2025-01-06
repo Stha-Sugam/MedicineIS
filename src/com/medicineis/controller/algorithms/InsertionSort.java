@@ -12,7 +12,7 @@ import java.util.List;
  * @author sugam
  */
 public class InsertionSort {
-    public static void performInsertionSort(List<MedicineInfo> medicineList, String item){
+    public static List<MedicineInfo> performInsertionSort(List<MedicineInfo> medicineList, String item){
         int listSize = medicineList.size();
         
         for(int i = 1; i < listSize; i++){
@@ -34,5 +34,6 @@ public class InsertionSort {
             }
             medicineList.set(j + 1, temp);
         }
+        return medicineList;
     }
 }

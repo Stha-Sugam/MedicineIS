@@ -5,6 +5,7 @@
 package com.MedicineIS.view;
 
 import com.MedicineIS.model.MedicineInfo;
+import com.medicineis.controller.algorithms.BinarySearch;
 import com.medicineis.controller.algorithms.InsertionSort;
 import com.medicineis.controller.algorithms.MergeSort;
 import com.medicineis.controller.algorithms.SelectionSort;
@@ -20,15 +21,18 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author sugam.stha
+ * This class contains the Frame and the GUI for Medicine Information System.
+ * 
+ * @author Sugam Shrestha
+ * LMU ID: 23048636
  */
 public class MedicineIS extends javax.swing.JFrame {
-
+    // Declaration of CardLayouts.
     private java.awt.CardLayout bodyCardLayout;
     private java.awt.CardLayout mainCardLayout;
     private java.awt.CardLayout adminCardLayout;
-
+    
+    // Declartion of medicineList.
     private List<MedicineInfo> medicineList;
 
     /**
@@ -95,7 +99,7 @@ public class MedicineIS extends javax.swing.JFrame {
     }
 
     /**
-     * changes panels of frame according to the panel passed to parameters
+     * changes panels of frame according to the panel passed to parameter
      *
      * @param panelName the panel to be shown in the frame
      */
@@ -153,7 +157,7 @@ public class MedicineIS extends javax.swing.JFrame {
         txtSearchBar = new javax.swing.JTextField();
         lblSearchIcon = new javax.swing.JLabel();
         comboxSortItems = new javax.swing.JComboBox<>();
-        lblAdminSearchError = new javax.swing.JLabel();
+        lblSearchError = new javax.swing.JLabel();
         lblAddInfoVerification = new javax.swing.JLabel();
         lblConfirmationMsg = new javax.swing.JLabel();
         lblSortText = new javax.swing.JLabel();
@@ -423,6 +427,8 @@ public class MedicineIS extends javax.swing.JFrame {
         });
         tblMedicineDatabase.setFocusable(false);
         tblMedicineDatabase.setRowHeight(25);
+        tblMedicineDatabase.setSelectionBackground(new java.awt.Color(100, 255, 200));
+        tblMedicineDatabase.setSelectionForeground(new java.awt.Color(60, 60, 60));
         tblMedicineDatabase.setShowHorizontalLines(true);
         tblMedicineDatabase.getTableHeader().setReorderingAllowed(false);
         scrPaneTable.setViewportView(tblMedicineDatabase);
@@ -467,6 +473,9 @@ public class MedicineIS extends javax.swing.JFrame {
         lblSearchIcon.setFocusable(false);
         lblSearchIcon.setRequestFocusEnabled(false);
         lblSearchIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearchIconMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblSearchIconMouseEntered(evt);
             }
@@ -486,7 +495,7 @@ public class MedicineIS extends javax.swing.JFrame {
             }
         });
 
-        lblAdminSearchError.setForeground(new java.awt.Color(200, 90, 0));
+        lblSearchError.setForeground(new java.awt.Color(200, 90, 0));
 
         lblAddInfoVerification.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblAddInfoVerification.setForeground(new java.awt.Color(100, 255, 200));
@@ -525,7 +534,7 @@ public class MedicineIS extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlAdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtSearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                                .addComponent(lblAdminSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(0, 0, 0)
                             .addComponent(lblSearchIcon)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -551,7 +560,7 @@ public class MedicineIS extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(comboxSortItems, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, 0)
-                        .addComponent(lblAdminSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSearchError, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminDashboardLayout.createSequentialGroup()
                         .addComponent(lblDatabasePageLogo)
@@ -779,11 +788,6 @@ public class MedicineIS extends javax.swing.JFrame {
         txtUpdateMedUsuage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         txtUpdateMedUsuage.setForeground(new java.awt.Color(100, 255, 200));
         txtUpdateMedUsuage.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Usuage", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
-        txtUpdateMedUsuage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUpdateMedUsuageActionPerformed(evt);
-            }
-        });
 
         lblUpdateMedBtn.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblUpdateMedBtn.setForeground(new java.awt.Color(100, 255, 200));
@@ -1327,9 +1331,9 @@ public class MedicineIS extends javax.swing.JFrame {
     }
 
     /**
+     * removes the orange background color in labels
      *
-     *
-     * @param label
+     * @param label the label passed for removing background color
      */
     private void removeOrangeBgColor(JLabel label) {
         label.setOpaque(false);
@@ -1338,8 +1342,9 @@ public class MedicineIS extends javax.swing.JFrame {
     }
 
     /**
-     *
-     * @param label
+     * removes the green background color in labels
+     * 
+     * @param label the label passed for removing background color
      */
     private void removeGreenBgColor(JLabel label) {
         label.setOpaque(false);
@@ -1348,8 +1353,9 @@ public class MedicineIS extends javax.swing.JFrame {
     }
 
     /**
-     *
-     * @param label
+     * removes the red background color in labels
+     * 
+     * @param label the label passed for removing background color
      */
     private void removeRedBgColor(JLabel label) {
         label.setOpaque(false);
@@ -1358,7 +1364,7 @@ public class MedicineIS extends javax.swing.JFrame {
     }
 
     /**
-     *
+     * This method loads the homepage after being called.
      */
     private void loadHomePage() {
         
@@ -1368,6 +1374,9 @@ public class MedicineIS extends javax.swing.JFrame {
         changeBodyPanels("HomePage");
     }
 
+    /**
+     * This method loads the admin page after being called.
+     */
     private void loadAdminPage() {
         performSorting();
         addBottomColor(lblAdminControl);
@@ -1377,7 +1386,7 @@ public class MedicineIS extends javax.swing.JFrame {
     }
 
     /**
-     * 5 or more data added to arraylist. Then added to the table and displayed.
+     * Multiple data are added to the Array List initially, then added to the table and displayed using registerMedicine method.
      */
     private void initialData() {
         // initializing medicineList as Array list
@@ -1396,33 +1405,51 @@ public class MedicineIS extends javax.swing.JFrame {
         registerMedicine(new MedicineInfo("MED009", "Ciprofloxacin", 500, "Tablet", "Sun Pharma", 1400, "Treats bacterial infections"));
     }
 
+    /**
+     * This method takes the object of MedicineInfo and adds it to the table.
+     * 
+     * @param medicine the object to be added to the table.
+     */
     private void registerMedicine(MedicineInfo medicine) {
+        // adding the object of MedicineInfo to the medicineList
         medicineList.add(medicine);
 
-        DefaultTableModel model = (DefaultTableModel) tblMedicineDatabase.getModel();
-        model.addRow(new Object[]{
+        // typecasting the table's model to DefaultTableModel
+        DefaultTableModel table = (DefaultTableModel) tblMedicineDatabase.getModel();
+        
+        // adding the objects to the table using addRow method of DefaultTableModel.
+        table.addRow(new Object[]{
             medicine.getMedID(), medicine.getMedName(), medicine.getMedStrength(), medicine.getMedDosageForm(), medicine.getMedManufacturer(), medicine.getMedPrice(), medicine.getMedUsuage()
         });
     }
 
+    // when clicked on home label, loads the homepage.
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         loadHomePage();
     }//GEN-LAST:event_lblHomeMouseClicked
-
+    
+    // when clicked on admin label, loads the admin page.
     private void lblAdminControlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminControlMouseClicked
         loadAdminPage();
     }//GEN-LAST:event_lblAdminControlMouseClicked
 
+    // when hovered on home label, change the background color and cursor
     private void lblHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseEntered
+        // change cursor to hand cursor
         lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // change background color to orange
         setOrangeBgColor(lblHome);
     }//GEN-LAST:event_lblHomeMouseEntered
 
+    // when hovered on admin label, change the background color and cursor
     private void lblAdminControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminControlMouseEntered
+        // change cursor to hand cursor
         lblAdminControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // change background color to orange
         setOrangeBgColor(lblAdminControl);
     }//GEN-LAST:event_lblAdminControlMouseEntered
 
+    // when stop hovering on
     private void lblHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseExited
         removeOrangeBgColor(lblHome);
     }//GEN-LAST:event_lblHomeMouseExited
@@ -1447,11 +1474,16 @@ public class MedicineIS extends javax.swing.JFrame {
         removeRedBgColor(lblLogoutbtn);
     }//GEN-LAST:event_lblLogoutbtnMouseExited
 
+    // Clicking the login Button and checking for validtion
     private void lblLoginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginButtonMouseClicked
+        // extracting username and password from the fields
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
+        
+        //Setting the errors to empty
         lblUsernameError.setText("");
         lblPasswordError.setText("");
+        // validating if field empty
         if (Validation.checkNullorEmpty(username)) {
             lblUsernameError.setText("Username Required");
         }
@@ -1495,18 +1527,25 @@ public class MedicineIS extends javax.swing.JFrame {
     private void lblUpdateBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdateBtnMouseExited
         removeGreenBgColor(lblUpdateBtn);
     }//GEN-LAST:event_lblUpdateBtnMouseExited
-
+    /*
+    * This method is used for setting the text of seleted element in the respected fields in the udpate page.
+    */
     private void lblUpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdateBtnMouseClicked
         lblUpdateError.setText("");
+        // getting the seleted table row
         int tableIndex = tblMedicineDatabase.getSelectedRow();
 
+        // if no row is seleted, then show error message
         if (tableIndex == -1) {
             lblAdminError.setText("One row from the table should be selected to Update");
         } else {
+            // in case of sorted data, extract the index of the seleted data from the sorted arraylist
             int arrayListIndex = tblMedicineDatabase.convertRowIndexToModel(tableIndex);
 
+            // get the object object of the MedicineInfo from the arraylist
             MedicineInfo medicine = medicineList.get(arrayListIndex);
 
+            // using getter methods to extract values from the arraylist
             String medId = medicine.getMedID();
             String medName = medicine.getMedName();
             String medStrength = String.valueOf(medicine.getMedStrength());
@@ -1516,7 +1555,8 @@ public class MedicineIS extends javax.swing.JFrame {
             String medUse = medicine.getMedUsuage();
 
             clearUpdateTxts();
-
+            
+            // 
             changeAdminPanels("AdminUpdate");
             txtUpdateMedId.setText(medId);
             txtUpdateMedName.setText(medName);
@@ -1538,22 +1578,37 @@ public class MedicineIS extends javax.swing.JFrame {
         removeGreenBgColor(lblDeleteBtn);
     }//GEN-LAST:event_lblDeleteBtnMouseExited
 
+    /*
+    * This method deletes the selected data from the array list and the table
+    */
     private void lblDeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteBtnMouseClicked
+        // extracting the index of selected row from the table
         int tableIndex = tblMedicineDatabase.getSelectedRow();
+        
+        // if no row is selected, display error message
         if (tableIndex == -1) {
             lblAdminError.setText("One row from the table should be selected to Delete");
         } else {
+            // ask for confirmation of row deletion 
             int response = JOptionPane.showConfirmDialog(this, "Do you want to proceed?", "CONFIRMATION", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+            // if deletion confirmed then
             if (response == JOptionPane.YES_OPTION) {
+                // in case of table being sorted, extract the index of the sorted list
                 int arrayListIndex = tblMedicineDatabase.convertRowIndexToModel(tableIndex);
 
+                // remove the element from the arraylist
                 medicineList.remove(arrayListIndex);
+                
+                // typecasting the table to DefaultTableModel
                 DefaultTableModel table = (DefaultTableModel) tblMedicineDatabase.getModel();
+                // removing the row from the table
                 table.removeRow(tableIndex);
                 
                 lblConfirmationMsg.setForeground(new Color(100, 255, 200));
+                // sort the table after deletion
                 performSorting();
+                // display confirmation message
                 lblConfirmationMsg.setText("Medicine information has been succesfully deleted");
                 lblAdminError.setText("");
             } else {
@@ -1598,6 +1653,9 @@ public class MedicineIS extends javax.swing.JFrame {
 
     private void lblAddBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddBackMouseClicked
         changeAdminPanels("AdminDashboard");
+        
+        // clearing the textfields of add panel
+        clearAddTxts();
     }//GEN-LAST:event_lblAddBackMouseClicked
 
     private void lblUpdateBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdateBackMouseClicked
@@ -1622,7 +1680,31 @@ public class MedicineIS extends javax.swing.JFrame {
         removeGreenBgColor(lblUpdateMedBtn);
     }//GEN-LAST:event_lblUpdateMedBtnMouseExited
 
+    /**
+     * This method clears textfields and error messages in the add panel
+     */
+    private void clearAddTxts(){
+        txtAddMedId.setText("");
+        txtAddMedName.setText("");
+        txtAddMedStrength.setText("");
+        txtAddMedDosageForm.setText("");
+        txtAddMedManufacturer.setText("");
+        txtAddMedPrice.setText("");
+        txtAddMedUsuage.setText("");
+
+        lblAddIdError.setText("");
+        lblAddDosageFormError.setText("");
+        lblAddNameError.setText("");
+        lblAddStrengthError.setText("");
+        lblAddManufacturerError.setText("");
+        lblAddPriceError.setText("");
+        lblAddUsuageError.setText("");
+    }
+    /**
+     * This method clears the textfields and erros messages in the text field
+     */
     private void clearUpdateTxts() {
+        // clearing the text fields in the update page
         txtUpdateMedId.setText("");
         txtUpdateMedName.setText("");
         txtUpdateMedStrength.setText("");
@@ -1631,6 +1713,7 @@ public class MedicineIS extends javax.swing.JFrame {
         txtUpdateMedUsuage.setText("");
         txtUpdateMedManufacturer.setText("");
 
+        // clearing the errors in the update page
         lblUpdateIdError.setText("");
         lblUpdateDosageFormError.setText("");
         lblUpdateNameError.setText("");
@@ -1653,7 +1736,8 @@ public class MedicineIS extends javax.swing.JFrame {
 
             boolean empty = false;
             boolean valid = true;
-            // if any text fields are empty, give warning according to that
+            // if any text fields are empty, give warning according to that.
+            // validating medId
             if (Validation.checkNullorEmpty(medId)) {
                 lblUpdateIdError.setText("Medicine id required");
                 empty = true;
@@ -1661,6 +1745,8 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblUpdateIdError.setText("Should only contain alphabets and numbers");
                 valid = false;
             }
+            
+            // validating medName
             if (Validation.checkNullorEmpty(medName)) {
                 lblUpdateNameError.setText("Medicine name required");
                 empty = true;
@@ -1668,6 +1754,8 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblUpdateNameError.setText("Should be Alphabets");
                 valid = false;
             }
+            
+            // validating medForm
             if (Validation.checkNullorEmpty(medForm)) {
                 lblUpdateDosageFormError.setText("Medicine form required");
                 empty = true;
@@ -1676,11 +1764,14 @@ public class MedicineIS extends javax.swing.JFrame {
                 valid = false;
             }
 
+            // validating medStrenght
             if (Validation.checkNullorEmpty(medStrength)) {
                 lblUpdateStrengthError.setText("Medicine strength required");
                 empty = true;
             } else {
+                // using try-catch for NumberFormatException of strength
                 try{
+                    // parsing medStength as integer
                     int numMedStrength = Integer.parseInt(medStrength);
                     if (!Validation.checkStrength(numMedStrength)) {
                         lblUpdateStrengthError.setText("Should be between 0 to 2000");
@@ -1691,6 +1782,8 @@ public class MedicineIS extends javax.swing.JFrame {
                     lblUpdateStrengthError.setText("Should be a number.");
                 }
             }
+            
+            //validating medManufacturer
             if (Validation.checkNullorEmpty(medManufacturer)) {
                 lblUpdateManufacturerError.setText("Medicine manufacturer required");
                 empty = true;
@@ -1699,11 +1792,14 @@ public class MedicineIS extends javax.swing.JFrame {
                 valid = false;
             }
 
+            // validating medPrice
             if (Validation.checkNullorEmpty(medPrice)) {
                 lblUpdatePriceError.setText("Medicine price required.");
                 empty = true;
             } else{
+                // using try-catch for NumberFormatException of price
                 try{
+                    // parsing medPrice as integer
                     int numMedPrice = Integer.parseInt(medPrice);
                     if (!Validation.checkPrice(numMedPrice)) {
                         lblUpdatePriceError.setText("Price should be a valid number.");
@@ -1714,6 +1810,8 @@ public class MedicineIS extends javax.swing.JFrame {
                     lblUpdatePriceError.setText("Should be a number.");
                 }
             }
+            
+            // validating medUsuage
             if (Validation.checkNullorEmpty(medUsuage)) {
                 lblUpdateUsuageError.setText("Medicine usuage required.");
                 empty = true;
@@ -1752,6 +1850,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 tblMedicineDatabase.setValueAt(medPrice, tableIndex, 5);
                 tblMedicineDatabase.setValueAt(medUsuage, tableIndex, 6);
 
+                // sort the data after updating according to the selected item in the combo box
                 performSorting();
                 
                 // Refresh the table to ensure it displays the updated content
@@ -1770,23 +1869,9 @@ public class MedicineIS extends javax.swing.JFrame {
         catch(NumberFormatException ex){}
     }//GEN-LAST:event_lblUpdateMedBtnMouseClicked
 
-    private void clearAddTxt() {
-        txtAddMedId.setText("");
-        txtAddMedName.setText("");
-        txtAddMedStrength.setText("");
-        txtAddMedDosageForm.setText("");
-        txtAddMedManufacturer.setText("");
-        txtAddMedPrice.setText("");
-        txtAddMedUsuage.setText("");
-
-        lblAddIdError.setText("");
-        lblAddDosageFormError.setText("");
-        lblAddNameError.setText("");
-        lblAddStrengthError.setText("");
-        lblAddManufacturerError.setText("");
-        lblAddPriceError.setText("");
-        lblAddUsuageError.setText("");
-    }
+    /**
+     * This method performs a event when the add button is clicked.
+     */
     private void lblAddMedBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMedBtnMouseClicked
         // setting all the labels to empty
         lblAddIdError.setText("");
@@ -1797,6 +1882,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblAddPriceError.setText("");
         lblAddUsuageError.setText("");
 
+        // using try catch for checking strength and price is a number or not
         try {
             // extracting texts from the textfields
             String medId = txtAddMedId.getText();
@@ -1807,9 +1893,12 @@ public class MedicineIS extends javax.swing.JFrame {
             String medPrice = txtAddMedPrice.getText();
             String medUsuage = txtAddMedUsuage.getText();
 
+            // declaring and initializing emtpy and valid as false and true
             boolean empty = false;
             boolean valid = true;
             // if any text fields are empty, give warning according to that
+            
+            // validating medId
             if (Validation.checkNullorEmpty(medId)) {
                 lblAddIdError.setText("Medicine id required.");
                 empty = true;
@@ -1817,6 +1906,8 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddIdError.setText("Format eg. ABC123, ABED1234.");
                 valid = false;
             }
+            
+            // validating medName
             if (Validation.checkNullorEmpty(medName)) {
                 lblAddNameError.setText("Medicine name required.");
                 empty = true;
@@ -1824,6 +1915,8 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddNameError.setText("Should be Alphabets.");
                 valid = false;
             }
+            
+            // validating medForm
             if (Validation.checkNullorEmpty(medForm)) {
                 lblAddDosageFormError.setText("Medicine form required.");
                 empty = true;
@@ -1831,12 +1924,16 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddDosageFormError.setText("eg. Liquid, Capsule, Syrup, Pill.");
                 valid = false;
             }
+            
+            // validating medStrength
             String strMedStrength = String.valueOf(medStrength);
             if (Validation.checkNullorEmpty(strMedStrength)) {
                 lblAddStrengthError.setText("Medicine strength required.");
                 empty = true;
             } else{
+                // try-catch for NumberFormatException for Strength
                 try{
+                    // parsing medStrength as integer
                     int numMedStrength = Integer.parseInt(medStrength);
                     if (!Validation.checkStrength(numMedStrength)) {
                         lblAddStrengthError.setText("Should be between 0 to 2000.");
@@ -1847,6 +1944,8 @@ public class MedicineIS extends javax.swing.JFrame {
                     lblAddStrengthError.setText("Should be a number");
                 }
             }
+            
+            // validating medManufacturer
             if (Validation.checkNullorEmpty(medManufacturer)) {
                 lblAddManufacturerError.setText("Medicine manufacturer required.");
                 empty = true;
@@ -1854,12 +1953,16 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddManufacturerError.setText("Not Valid.");
                 valid = false;
             }
+            
+            // validating medPrice
             String strMedPrice = String.valueOf(medPrice);
             if (Validation.checkNullorEmpty(strMedPrice)) {
                 lblAddPriceError.setText("Medicine price is required.");
                 empty = true;
             } else {
+                //try-catch for NumberFormatException for price
                 try{
+                    // parsing medPrice as integer
                     int numMedPrice = Integer.parseInt(medPrice);
                     if(!Validation.checkPrice(numMedPrice)) {
                         lblAddPriceError.setText("Price should be more than 0.");
@@ -1870,6 +1973,8 @@ public class MedicineIS extends javax.swing.JFrame {
                     lblAddPriceError.setText("Should be a number");
                 }
             }
+            
+            // validating medUsuage
             if (Validation.checkNullorEmpty(medUsuage)) {
                 lblAddUsuageError.setText("Medicine usuage required.");
                 empty = true;
@@ -1891,15 +1996,27 @@ public class MedicineIS extends javax.swing.JFrame {
                     break;
                 }
             }
+            
+            // if the medicine is not found, then add the medicine to the arraylist and also to the table.
             if (!found) {
                 MedicineInfo newMedicine = new MedicineInfo(medId, medName, Integer.parseInt(medStrength), medForm, medManufacturer, Integer.parseInt(medPrice), medUsuage);
                 registerMedicine(newMedicine);
+                
+                // clearing text fields in add
+                txtAddMedId.setText("");
+                txtAddMedName.setText("");
+                txtAddMedStrength.setText("");
+                txtAddMedDosageForm.setText("");
+                txtAddMedManufacturer.setText("");
+                txtAddMedPrice.setText("");
+                txtAddMedUsuage.setText("");
                 
                 changeAdminPanels("AdminDashboard");
                 performSorting();
                 lblConfirmationMsg.setText("Medicine Information has been successfully Added");
             }
             else{
+                // display already exists message if the medicine id is found.
                 lblAddError.setText("This medicine id already exists.");
             }
         } catch (NumberFormatException ex) {}
@@ -1909,13 +2026,9 @@ public class MedicineIS extends javax.swing.JFrame {
     private void lblSearchIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchIconMouseEntered
         lblSearchIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_lblSearchIconMouseEntered
-
-    private void txtUpdateMedUsuageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUpdateMedUsuageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUpdateMedUsuageActionPerformed
-
+        
     private void lblAddMedClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMedClearMouseClicked
-        clearAddTxt();
+        clearAddTxts();
     }//GEN-LAST:event_lblAddMedClearMouseClicked
 
     private void lblAddMedClearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMedClearMouseEntered
@@ -1945,28 +2058,36 @@ public class MedicineIS extends javax.swing.JFrame {
         changeAdminPanels("AdminDashboard");
     }//GEN-LAST:event_lblAdminLinkMouseClicked
 
+    /**
+     * This method sorts the table according to the selected item from the combo box.
+     */
     public void performSorting(){
+        // extracting selected item from the combo box
         String selectedItem = comboxSortItems.getSelectedItem().toString();
-        System.out.println(selectedItem);
-        
+        // conditions for when to use the sorts according to the selected item
         if (selectedItem.equals("ID: A - Z") 
             || selectedItem.equals("ID: Z - A") 
             || selectedItem.equals("Manufacturer: A - Z") 
             || selectedItem.equals("Manufacturer: Z - A")){
+            // using selction sort for Id and Manufacturer
             SelectionSort.performSelectionSort(medicineList, selectedItem);
         }
         else if(selectedItem.equals("Name: A - Z") || selectedItem.equals("Name: Z - A")){
+            // using insertion sort for name
             InsertionSort.performInsertionSort(medicineList, selectedItem);
         }
         else if(selectedItem.equals("Price: High - Low") || selectedItem.equals("Price: Low - High")
             || selectedItem.equals("Strength: High - Low") || selectedItem.equals("Strength: Low - High")){
+            // using merge sort for price and strength
             MergeSort.performMergeSort(medicineList, selectedItem);
         }
 
         
         DefaultTableModel table = (DefaultTableModel) tblMedicineDatabase.getModel();
+        // clearing the table
         table.setRowCount(0);
 
+        // adding the sorted rows to the table
         for(MedicineInfo medicine: medicineList){
             table.addRow(new Object[]{
                 medicine.getMedID(), 
@@ -1977,12 +2098,48 @@ public class MedicineIS extends javax.swing.JFrame {
                 medicine.getMedPrice(), 
                 medicine.getMedUsuage()
             });
+            // revalidating the table
             tblMedicineDatabase.revalidate();
         }
     }
+    
+    // when the selected item is changed in the combo box, then the sorting is perfomed.
     private void comboxSortItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxSortItemsActionPerformed
         performSorting();
     }//GEN-LAST:event_comboxSortItemsActionPerformed
+
+    private void lblSearchIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchIconMouseClicked
+        lblSearchError.setText("");
+        // sorting the elements in the medicineList by name ascending
+        List<MedicineInfo> sortedList = InsertionSort.performInsertionSort(medicineList, "Name: A - Z");
+
+        // extracting text from the search field
+        String searchedValue = txtSearchBar.getText();
+        // using binary search to find the value
+        MedicineInfo value = BinarySearch.findName(searchedValue, sortedList, 0, sortedList.size()-1);
+        
+        if(searchedValue.isEmpty()){
+            lblSearchError.setText("Search field cannot be left empty");
+            return;
+        }
+        // if value is not null then highlight the value in the table
+        if(value != null){
+            DefaultTableModel table = (DefaultTableModel) tblMedicineDatabase.getModel();
+            
+            for (int i = 0; i < table.getRowCount(); i++) {
+                String rowName = (String) table.getValueAt(i, 1);
+                if (rowName.equals(value.getMedName())) {
+                    // Select the row having seached value in the table
+                    tblMedicineDatabase.setRowSelectionInterval(i, i);
+                    // Scroll to the row having searched value in the table
+                    tblMedicineDatabase.scrollRectToVisible(tblMedicineDatabase.getCellRect(i, 0, true));
+                    break;
+                }
+            }
+        } else{
+            lblSearchError.setText("Medicine not found in the database");
+        }
+    }//GEN-LAST:event_lblSearchIconMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2039,7 +2196,6 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JLabel lblAdminDesc;
     private javax.swing.JLabel lblAdminError;
     private javax.swing.JLabel lblAdminLink;
-    private javax.swing.JLabel lblAdminSearchError;
     private javax.swing.JLabel lblBodyHeading;
     private javax.swing.JLabel lblConfirmationMsg;
     private javax.swing.JLabel lblDatabasePageLogo;
@@ -2054,6 +2210,7 @@ public class MedicineIS extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogoutbtn;
     private javax.swing.JLabel lblMainHead;
     private javax.swing.JLabel lblPasswordError;
+    private javax.swing.JLabel lblSearchError;
     private javax.swing.JLabel lblSearchIcon;
     private javax.swing.JLabel lblSortText;
     private javax.swing.JLabel lblSubHeading1Login;

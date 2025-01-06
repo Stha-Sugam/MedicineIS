@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author sugam
+ * @author Sugam Shrestha
  */
 public class MergeSort {
     public static void performMergeSort(List<MedicineInfo> medicineList, String item){
