@@ -960,7 +960,7 @@ public class MedicineIS extends javax.swing.JFrame {
         txtAddMedName.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Name", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
 
         txtAddMedStrength.setBackground(new java.awt.Color(60, 60, 60));
-        txtAddMedStrength.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
+        txtAddMedStrength.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         txtAddMedStrength.setForeground(new java.awt.Color(100, 255, 200));
         txtAddMedStrength.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 255, 200), 2, true), "Strength (mg)", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial Rounded MT Bold", 0, 20), new java.awt.Color(100, 255, 200))); // NOI18N
 
@@ -1449,15 +1449,15 @@ public class MedicineIS extends javax.swing.JFrame {
         setOrangeBgColor(lblAdminControl);
     }//GEN-LAST:event_lblAdminControlMouseEntered
 
-    // when stop hovering on
+    // when stop hovering on home label
     private void lblHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseExited
         removeOrangeBgColor(lblHome);
     }//GEN-LAST:event_lblHomeMouseExited
-
+    // when stop hovering on admin label
     private void lblAdminControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminControlMouseExited
         removeOrangeBgColor(lblAdminControl);
     }//GEN-LAST:event_lblAdminControlMouseExited
-
+    // when logout button clicked
     private void lblLogoutbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutbtnMouseClicked
         changeBodyPanels("HomePage");
         addBottomColor(lblHome);
@@ -1483,15 +1483,15 @@ public class MedicineIS extends javax.swing.JFrame {
         //Setting the errors to empty
         lblUsernameError.setText("");
         lblPasswordError.setText("");
-        // validating if field empty
+        // validating if username field empty
         if (Validation.checkNullorEmpty(username)) {
             lblUsernameError.setText("Username Required");
         }
-
+        // validating if password field empty
         if (Validation.checkNullorEmpty(password)) {
             lblPasswordError.setText("Password Required");
         }
-
+        // validating username and password
         if (!Validation.checkNullorEmpty(username) && !Validation.checkNullorEmpty(password)) {
             if (username.equals("admin") && password.equals("admin")) {
                 txtUsername.setText("");
@@ -1556,7 +1556,7 @@ public class MedicineIS extends javax.swing.JFrame {
 
             clearUpdateTxts();
             
-            // 
+            // setting the getting values from the selected object of MedicineInfo 
             changeAdminPanels("AdminUpdate");
             txtUpdateMedId.setText(medId);
             txtUpdateMedName.setText(medName);
@@ -1681,7 +1681,7 @@ public class MedicineIS extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUpdateMedBtnMouseExited
 
     /**
-     * This method clears textfields and error messages in the add panel
+     * This method clears text fields and error messages in the add panel
      */
     private void clearAddTxts(){
         txtAddMedId.setText("");
@@ -1701,7 +1701,7 @@ public class MedicineIS extends javax.swing.JFrame {
         lblAddUsuageError.setText("");
     }
     /**
-     * This method clears the textfields and erros messages in the text field
+     * This method clears the text fields and errors messages in the text field
      */
     private void clearUpdateTxts() {
         // clearing the text fields in the update page
@@ -1742,7 +1742,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblUpdateIdError.setText("Medicine id required");
                 empty = true;
             } else if (!Validation.checkId(medId)) {
-                lblUpdateIdError.setText("Should only contain alphabets and numbers");
+                lblUpdateIdError.setText("Invalid. Should contain alphabets then numbers");
                 valid = false;
             }
             
@@ -1751,7 +1751,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblUpdateNameError.setText("Medicine name required");
                 empty = true;
             } else if (!Validation.checkName(medName)) {
-                lblUpdateNameError.setText("Should be Alphabets");
+                lblUpdateNameError.setText("Invalid. Should be Alphabets");
                 valid = false;
             }
             
@@ -1760,7 +1760,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblUpdateDosageFormError.setText("Medicine form required");
                 empty = true;
             } else if (!Validation.checkForm(medForm)) {
-                lblUpdateDosageFormError.setText("Should be Alphabets");
+                lblUpdateDosageFormError.setText("Invalid. Should be Alphabets eg. Pill");
                 valid = false;
             }
 
@@ -1774,7 +1774,7 @@ public class MedicineIS extends javax.swing.JFrame {
                     // parsing medStength as integer
                     int numMedStrength = Integer.parseInt(medStrength);
                     if (!Validation.checkStrength(numMedStrength)) {
-                        lblUpdateStrengthError.setText("Should be between 0 to 2000");
+                        lblUpdateStrengthError.setText("Invalid. Should be between 0 to 2000");
                         valid = false;
                     }
                 }
@@ -1788,7 +1788,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblUpdateManufacturerError.setText("Medicine manufacturer required");
                 empty = true;
             } else if (!Validation.checkManufacturer(medManufacturer)) {
-                lblUpdateManufacturerError.setText("Not Valid");
+                lblUpdateManufacturerError.setText("Invalid. Should contain only alphabets");
                 valid = false;
             }
 
@@ -1802,7 +1802,7 @@ public class MedicineIS extends javax.swing.JFrame {
                     // parsing medPrice as integer
                     int numMedPrice = Integer.parseInt(medPrice);
                     if (!Validation.checkPrice(numMedPrice)) {
-                        lblUpdatePriceError.setText("Price should be a valid number.");
+                        lblUpdatePriceError.setText("Invalid. Should be more than 0");
                         valid = false;
                     }
                 }
@@ -1816,7 +1816,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblUpdateUsuageError.setText("Medicine usuage required.");
                 empty = true;
             } else if (!Validation.checkUsuage(medUsuage)) {
-                lblUpdateUsuageError.setText("Special Characters not allowed.");
+                lblUpdateUsuageError.setText("Invalid. Should contain only alphabets.");
                 valid = false;
             }
 
@@ -1903,7 +1903,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddIdError.setText("Medicine id required.");
                 empty = true;
             } else if (!Validation.checkId(medId)) {
-                lblAddIdError.setText("Format eg. ABC123, ABED1234.");
+                lblAddIdError.setText("Invalid. Should contain alphabets then numbers");
                 valid = false;
             }
             
@@ -1912,7 +1912,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddNameError.setText("Medicine name required.");
                 empty = true;
             } else if (!Validation.checkName(medName)) {
-                lblAddNameError.setText("Should be Alphabets.");
+                lblAddNameError.setText("Invalid. Should contain only Alphabets.");
                 valid = false;
             }
             
@@ -1921,7 +1921,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddDosageFormError.setText("Medicine form required.");
                 empty = true;
             } else if (!Validation.checkForm(medForm)) {
-                lblAddDosageFormError.setText("eg. Liquid, Capsule, Syrup, Pill.");
+                lblAddDosageFormError.setText("Invalid. Should be words. eg. Pill");
                 valid = false;
             }
             
@@ -1936,7 +1936,7 @@ public class MedicineIS extends javax.swing.JFrame {
                     // parsing medStrength as integer
                     int numMedStrength = Integer.parseInt(medStrength);
                     if (!Validation.checkStrength(numMedStrength)) {
-                        lblAddStrengthError.setText("Should be between 0 to 2000.");
+                        lblAddStrengthError.setText("Invalid. Should be between 0 to 2000.");
                         valid = false;
                     }
                 }
@@ -1950,7 +1950,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddManufacturerError.setText("Medicine manufacturer required.");
                 empty = true;
             } else if (!Validation.checkManufacturer(medManufacturer)) {
-                lblAddManufacturerError.setText("Not Valid.");
+                lblAddManufacturerError.setText("Invalid. Should contain only alphabets");
                 valid = false;
             }
             
@@ -1965,7 +1965,7 @@ public class MedicineIS extends javax.swing.JFrame {
                     // parsing medPrice as integer
                     int numMedPrice = Integer.parseInt(medPrice);
                     if(!Validation.checkPrice(numMedPrice)) {
-                        lblAddPriceError.setText("Price should be more than 0.");
+                        lblAddPriceError.setText("Invalid. Should be more than 0.");
                         valid = false;
                     }
                 }
@@ -1979,7 +1979,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 lblAddUsuageError.setText("Medicine usuage required.");
                 empty = true;
             } else if (!Validation.checkUsuage(medUsuage)) {
-                lblAddUsuageError.setText("No special character allowed.");
+                lblAddUsuageError.setText("Invalid. Should contain only alphabets");
                 valid = false;
             }
 
