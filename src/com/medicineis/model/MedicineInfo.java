@@ -15,16 +15,16 @@ public class MedicineInfo {
     private String medDosageForm;
     private String medManufacturer;
     private int medPrice;
-    private String medUsuage;
+    private String medUsage;
 
-    public MedicineInfo(String medID, String medName, int medStrength, String medDosageForm, String medManufacturer, int medPrice, String medUsuage) {
+    public MedicineInfo(String medID, String medName, int medStrength, String medDosageForm, String medManufacturer, int medPrice, String medUsage) {
         this.medID = medID;
         this.medName = medName;
         this.medStrength = medStrength;
         this.medDosageForm = medDosageForm;
         this.medManufacturer = medManufacturer;
         this.medPrice = medPrice;
-        this.medUsuage = medUsuage;
+        this.medUsage = medUsage;
     }
 
     public String getMedID() {
@@ -75,12 +75,12 @@ public class MedicineInfo {
         this.medPrice = medPrice;
     }
 
-    public String getMedUsuage() {
-        return medUsuage;
+    public String getMedUsage() {
+        return medUsage;
     }
 
-    public void setMedUsuage(String medUsuage) {
-        this.medUsuage = medUsuage;
+    public void setMedUsage(String medUsage) {
+        this.medUsage = medUsage;
     }
 
         

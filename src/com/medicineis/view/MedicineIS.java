@@ -1419,7 +1419,7 @@ public class MedicineIS extends javax.swing.JFrame {
         
         // adding the objects to the table using addRow method of DefaultTableModel.
         table.addRow(new Object[]{
-            medicine.getMedID(), medicine.getMedName(), medicine.getMedStrength(), medicine.getMedDosageForm(), medicine.getMedManufacturer(), medicine.getMedPrice(), medicine.getMedUsuage()
+            medicine.getMedID(), medicine.getMedName(), medicine.getMedStrength(), medicine.getMedDosageForm(), medicine.getMedManufacturer(), medicine.getMedPrice(), medicine.getMedUsage()
         });
     }
 
@@ -1552,7 +1552,7 @@ public class MedicineIS extends javax.swing.JFrame {
             String medDosageForm = medicine.getMedDosageForm();
             String medManufacturer = medicine.getMedManufacturer();
             String medPrice = String.valueOf(medicine.getMedPrice());
-            String medUse = medicine.getMedUsuage();
+            String medUse = medicine.getMedUsage();
 
             clearUpdateTxts();
             
@@ -1839,7 +1839,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 medicine.setMedStrength(Integer.parseInt(medStrength));
                 medicine.setMedManufacturer(medManufacturer);
                 medicine.setMedPrice(Integer.parseInt(medPrice));
-                medicine.setMedUsuage(medUsuage);
+                medicine.setMedUsage(medUsuage);
 
                 // Updating the corresponding table row with the new updated values
                 tblMedicineDatabase.setValueAt(medId, tableIndex, 0);
@@ -1999,7 +1999,14 @@ public class MedicineIS extends javax.swing.JFrame {
             
             // if the medicine is not found, then add the medicine to the arraylist and also to the table.
             if (!found) {
-                MedicineInfo newMedicine = new MedicineInfo(medId, medName, Integer.parseInt(medStrength), medForm, medManufacturer, Integer.parseInt(medPrice), medUsuage);
+                MedicineInfo newMedicine = new MedicineInfo(
+                        medId, 
+                        medName, 
+                        Integer.parseInt(medStrength), 
+                        medForm, 
+                        medManufacturer, 
+                        Integer.parseInt(medPrice), 
+                        medUsuage);
                 registerMedicine(newMedicine);
                 
                 // clearing text fields in add
@@ -2096,7 +2103,7 @@ public class MedicineIS extends javax.swing.JFrame {
                 medicine.getMedDosageForm(), 
                 medicine.getMedManufacturer(), 
                 medicine.getMedPrice(), 
-                medicine.getMedUsuage()
+                medicine.getMedUsage()
             });
             // revalidating the table
             tblMedicineDatabase.revalidate();
